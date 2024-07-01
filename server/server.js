@@ -1,26 +1,64 @@
 const express = require("express");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const cors = require("cors");
 const path = require("path");
 const { format } = require("date-fns");
+const ip = require("ip");
+const dotenv = require("dotenv");
 
 const app = express();
 
+dotenv.config();
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cors());
 app.use(express.json());
 
-const port = 5000;
+const corsOptions = {
+    origin: process.env.CORS_ORIGIN || 'http://localhost:3000', // Allow frontend domain, default to localhost:3000
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors(corsOptions));
+
+
+// app.use(cors());
+
+const PORT = process.env.PORT || 5000; // Use the PORT environment variable, default to 5000 if not set
 
 const db = mysql.createConnection({
-	host: "localhost",
-	user: "root",
-	password: "Penisbutt123!",
-	database: "JobHunting",
+	host: process.env.DB_HOST || "localhost",
+	user: process.env.DB_USER || "root",
+	password: process.env.DB_PASSWORD || "Penisbutt123!",
+	database: process.env.DB_NAME || "JobHunting",
 });
 
+console.log(`Host:${process.env.DB_HOST} ,user:${process.env.DB_USER},password: ${process.env.DB_PASSWORD},database${process.env.DB_NAME},PORT: ${process.env.PORT}`)
+
+let attemptCount = 0;
+const maxAttempts = 5;
+let intervalId = setInterval(() => {
+    if (attemptCount >= maxAttempts) {
+        console.log("Failed to connect after several attempts.");
+        clearInterval(intervalId);
+        return;
+    }
+    db.connect((err) => {
+        if (err) {
+            console.log("Attempt", attemptCount + 1, "failed:", err);
+            attemptCount++;
+        } else {
+            console.log("Connected to database on attempt", attemptCount + 1);
+            clearInterval(intervalId);
+        }
+    });
+}, 5000);
+
+// db.connect((err) => {
+// 	if (err) throw err;
+// 	console.log("Connected to database!");
+// });
+
+
 app.post("/add_user", (req, res) => {
-sql =
+	sql =
 		"INSERT INTO applications (title , company , location , offer, description) VALUES (?, ?, ?, ?, ?)";
 	const values = [
 		req.body.title,
@@ -32,11 +70,9 @@ sql =
 	db.query(sql, values, (err, result) => {
 		if (err) {
 			console.error("error inserting data", err);
-			return res
-				.status(500)
-				.json({
-					messlocation: "Something unexpected had occured oopsie" + err,
-				});
+			return res.status(500).json({
+				messlocation: "Something unexpected had occured oopsie" + err,
+			});
 		}
 		console.log("application added", result);
 		return res.json({ success: "Job added successfully" });
@@ -53,16 +89,14 @@ app.post("/edit_user/:id", (req, res) => {
 		req.body.location,
 		req.body.offer,
 		req.body.description,
-		id
+		id,
 	];
 	db.query(sql, values, (err, result) => {
 		if (err) {
 			console.error("error inserting data", err);
-			return res
-				.status(500)
-				.json({
-					messlocation: "Something unexpected had occured oopsie" + err,
-				});
+			return res.status(500).json({
+				messlocation: "Something unexpected had occured oopsie" + err,
+			});
 		}
 		console.log("application added", result);
 		return res.json({ success: "application added successfully" });
@@ -71,7 +105,7 @@ app.post("/edit_user/:id", (req, res) => {
 
 app.get("/applications", (req, res) => {
 	const sql =
-	 	"SELECT  date, title , company , location , offer, id FROM applications";
+		"SELECT  date, title , company , location , offer, id FROM applications";
 	db.query(sql, (err, result) => {
 		if (err) {
 			console.error("error inserting data", err);
@@ -79,7 +113,8 @@ app.get("/applications", (req, res) => {
 		}
 		const formattedResults = result.map((item) => ({
 			...item,
-			date: format(new Date(item.date), "MMMM d, yyyy, h:mm a"),		}));
+			date: format(new Date(item.date), "MMMM d, yyyy, h:mm a"),
+		}));
 		console.log("data fetched", formattedResults);
 		return res.json(formattedResults);
 	});
@@ -87,7 +122,8 @@ app.get("/applications", (req, res) => {
 
 app.get("/get_applications/:id", (req, res) => {
 	const id = req.params.id;
-	const sql = "SELECT date, title , company , location , offer, id, description FROM applications WHERE `id` = ?";
+	const sql =
+		"SELECT date, title , company , location , offer, id, description FROM applications WHERE `id` = ?";
 	db.query(sql, [id], (err, result) => {
 		if (err) {
 			console.error("error inserting data", err);
@@ -112,17 +148,13 @@ app.delete("/delete/:id", (req, res) => {
 	db.query(sql, values, (err, result) => {
 		if (err) {
 			console.error("error inserting data", err);
-			return res
-				.status(500)
-				.json({
-					messlocation: "Something unexpected had occured oopsie" + err,
-				});
+			return res.status(500).json({
+				messlocation: "Something unexpected had occured oopsie" + err,
+			});
 		}
 		console.log("application added", result);
 		return res.json({ success: "application added successfully" });
 	});
 });
 
-app.listen(port, () => {
-	console.log("listening on http://localhost:5000");
-});
+app.listen(PORT, () => console.log(`Server running on port ${ip.address()}:${PORT}`));

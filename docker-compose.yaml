@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=Penisbutt123!
+      - MYSQL_DATABASE=JobHunting
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306 
+    volumes:
+      - ./mysql-init/:/docker-entrypoint-initdb.d
+    networks:
+      - internalnet
+  frontend:
+    build: ./client
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000 
+    environment:
+      - REACT_APP_API_URL=http://backend:5000
+    depends_on:
+      - backend
+    networks:
+      - internalnet
+  backend:
+    build: ./server
+    ports:
+      - "5000:5000"
+    expose:
+      - 5000 
+    environment:
+      - PORT=5000
+      - CORS_ORIGIN=http://localhost:3000
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=Penisbutt123!
+      - DB_NAME=JobHunting
+    networks:
+      - internalnet
+    depends_on:
+      - mysql
+    restart: always
+networks:
+  internalnet:
+    driver: bridge
