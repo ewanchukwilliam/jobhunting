@@ -13,6 +13,7 @@ services:
       - 3306 
     volumes:
       - ./mysql-init/:/docker-entrypoint-initdb.d
+      - $HOME/database:/var/lib/mysql
     networks:
       - internalnet
   frontend:
@@ -20,7 +21,7 @@ services:
     ports:
       - "3000:3000"
     expose:
-      - 3000 
+      - 3000                                              
     environment:
       - REACT_APP_API_URL=http://backend:5000
     depends_on:
