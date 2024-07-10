@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
+import { ScrollArea } from "../components/ui/scroll-area";
 
 function Home() {
 	const [data, setData] = useState([]);
@@ -27,12 +28,12 @@ function Home() {
 			.catch((err) => console.log(err));
 	}
 	return (
-		<div class="text-white font-thin h-screen w-100 bg-gray-900 px-5 py-5">
+		<div class="text-white font-thin min-h-screen w-100 bg-gray-900 px-5 py-5">
 			<Header data={data} />
-			<div class="flex flex-col justify-center">
-				<table class="rounded-lg bg-gray-800">
-					<thead class="">
-						<tr>
+			<div class="w-full rounded-xl overflow-x-auto overflow-y-auto max-h-[600px]">
+				<table class="rounded-xl bg-gray-800 min-w-full">
+					<thead class="sticky px-2 top-0 bg-gray-800">
+						<tr className="">
 							<th class="p-5">#</th>
 							<th class="p-5">Date</th>
 							<th class="text-left">Title</th>
@@ -42,7 +43,7 @@ function Home() {
 							<th class="text-center">Actions</th>
 						</tr>
 					</thead>
-					<tbody class="bg-gray-700">
+					<tbody class="overflow-y-auto divide-y divide-gray-900 bg-gray-700">
 						{data.map((variable, index) => {
 							return (
 								<tr class="m-2">
@@ -55,10 +56,16 @@ function Home() {
 									<td class="text-left border-gray-800  px-2 ">
 										{variable.title}
 									</td>
-									<td class="hidden lg:table-cell text-left ">{variable.company}</td>
-									<td class="hidden lg:table-cell text-left ">{variable.location}</td>
-									<td class="hidden lg:table-cell text-center ">{variable.offer}</td>
-									<td class="text-end flex items-center">
+									<td class="hidden lg:table-cell text-left ">
+										{variable.company}
+									</td>
+									<td class="hidden lg:table-cell text-left ">
+										{variable.location}
+									</td>
+									<td class="hidden lg:table-cell text-center ">
+										{variable.offer}
+									</td>
+									<td class="text-center justify-center flex items-center">
 										<Link
 											class="text-white rounded-lg shadow-black bg-blue-600 px-1 py-1 m-1"
 											to={`/read/${variable.id}`}
