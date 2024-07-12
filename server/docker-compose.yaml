@@ -17,7 +17,7 @@ services:
     networks:
       - internalnet
   backend:
-    build: ./server
+    build: .
     ports:
       - "5000:5000"
     expose:
