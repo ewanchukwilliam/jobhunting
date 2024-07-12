@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { ScrollArea } from "../components/ui/scroll-area";
 
 function Home() {
 	const [data, setData] = useState([]);
@@ -91,6 +91,7 @@ function Home() {
 					</tbody>
 				</table>
 			</div>
+			<Footer data={data} />
 		</div>
 	);
 }
