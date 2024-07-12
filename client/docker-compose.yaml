@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  frontend:
+    build: ./client
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000
+    environment:
+      - REACT_APP_API_URL=http://backend:5000
+    depends_on:
+      - backend
+    networks:
+      - internalnet
+networks:
+  internalnet:
+    driver: bridge
