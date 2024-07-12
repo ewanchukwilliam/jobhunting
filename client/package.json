@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy": "http://localhost:5000",
+  "proxy": "http://3.139.84.169:5000",
   "private": true,
   "dependencies": {
     "@radix-ui/react-scroll-area": "^1.1.0",
