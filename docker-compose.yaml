@@ -12,7 +12,7 @@ services:
     expose:
       - 3306 
     volumes:
-      - ./mysql-init/:/docker-entrypoint-initdb.d
+      - ./server/mysql-init/:/docker-entrypoint-initdb.d
       - $HOME/database:/var/lib/mysql
     networks:
       - internalnet
