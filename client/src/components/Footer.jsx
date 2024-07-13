@@ -1,48 +1,46 @@
 "use client";
 
 import { motion } from "framer-motion";
-import CountUp from "react-countup";
-import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "./ui/drawer";
 
-
-const Footer = ({data}) => {
-	return (
-
-			<motion.div
-				initial={{ opacity: 0 }}
-				animate={{
-					opacity: 1,
-					transition: { delay: 0, duration: 0.4, ease: "easeIn" },
-				}}
-			>
-				<div class="gap-2 text-lg flex flex-col lg:flex-row justify-between items-center my-3 ">
-					<h3 class="text-5xl font-semibold">Applications</h3>
-					<div class="h-10 p-20 my-2 flex flex-col justify-center items-center  bg-gray-700 rounded-full">
-						<p>Total applied</p>
-						<CountUp
-							end={data.length}
-							duration={5}
-							delay={1}
-							className="text-7xl font-bold"
-						/>
-					</div>
-					<div className="flex">
-						<Link
-							class="h-max rounded-full font-extrabold shadow-black bg-green-600 shadow-lg hover:-translate-y-2 transition px-8 py-5 mx-3"
-							to="/create"
-						>
-							New Application
-						</Link>
-						<Link
-							class="h-max rounded-full font-extrabold shadow-black bg-green-600 shadow-lg hover:-translate-y-2 transition px-8 py-5 mx-3"
-							to="/exportable"
-						>
-							Export to Excel
-						</Link>
-					</div>
-				</div>
-			</motion.div>
-	);
+const Footer = () => {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{
+        opacity: 1,
+        transition: { delay: 0, duration: 0.4, ease: "easeIn" },
+      }}
+    >
+      <div class="gap-2 text-lg min-w-screen py-10 px-5 flex flex-col lg:flex-row justify-between items-center my-3 ">
+        <a href="https://www.ewanchukwilliam.com" className="transition-all hover:text-accent">Authors Portfolio!</a>
+        <Drawer>
+          <DrawerTrigger className="hover:text-accent transition-all">Contact Author</DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Contact Information</DrawerTitle>
+              <DrawerDescription>Personal Email: ewanchukwilliam@gmail.com</DrawerDescription>
+            </DrawerHeader>
+            <DrawerFooter>
+              <DrawerClose>
+                <Button variant="outline">Close</Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      </div>
+    </motion.div>
+  );
 };
 
 export default Footer;

@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Footer from "../components/Footer";
+import Statistics from "../components/Statistics";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function Home() {
 	const [data, setData] = useState([]);
@@ -27,10 +28,11 @@ function Home() {
 			})
 			.catch((err) => console.log(err));
 	}
+	data.sort((a, b) => new Date(a.date) - new Date(b.date));
 	return (
 		<div class="text-white font-thin min-h-screen w-100 bg-gray-900 px-5 py-5">
 			<Header data={data} />
-			<div class="w-full rounded-xl overflow-x-auto overflow-y-auto max-h-[600px]">
+			<div class="w-full rounded-xl overflow-x-auto overflow-y-auto max-h-[900px]">
 				<table class="rounded-xl bg-gray-800 min-w-full">
 					<thead class="sticky px-2 top-0 bg-gray-800">
 						<tr className="">
@@ -91,7 +93,8 @@ function Home() {
 					</tbody>
 				</table>
 			</div>
-			<Footer data={data} />
+			<Statistics data={data} />
+			<Footer />
 		</div>
 	);
 }
