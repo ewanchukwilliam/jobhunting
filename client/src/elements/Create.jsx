@@ -24,10 +24,13 @@ function Create() {
         .catch((err)=>console.log(err))
     }
   return (
-    <div class='text-white text-start bg-gray-900 h-screen w-100 bg-green flex flex-col px-20 justify-center items-center bg-rounded'>
+    <div class='text-white text-start bg-gray-900 h-screen w-screen bg-green flex flex-col px-20 justify-center items-center bg-rounded'>
         <div class='bg-gray-700 h-full w-full mx-10 flex flex-col items-center'>
             <div class='flex flex-row justify-between items-center w-auto mt-10'>
-            		<h3 class="text-6xl px-10">Add application</h3>
+					<div className='flex flex-col'>
+						<h3 class="text-6xl px-10 text-center">Add application</h3>
+						<h5 class="text-3xl px-10 text-center text-muted-foreground">Just paste the relevent information here!</h5>
+					</div>
                 <Link to='/' class='rounded-full hover:bg-green-400 font-semibold shadow-black bg-green-600 shadow-lg hover:-translate-y-2 transition px-5 py-3 mx-3'>Home</Link>
             </div>
             <form onSubmit={handleSubmit} class="py-2">

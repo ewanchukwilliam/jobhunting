@@ -67,21 +67,21 @@ function Home() {
 									<td class="hidden lg:table-cell text-center ">
 										{variable.offer}
 									</td>
-									<td class="text-center justify-center flex items-center">
+									<td class="flex gap-1 my-3">
 										<Link
-											class="text-white rounded-lg shadow-black bg-blue-600 px-1 py-1 m-1"
+											class="text-white rounded-lg shadow-black bg-blue-600 hover:bg-blue-400  transition-all px-1 py-1 "
 											to={`/read/${variable.id}`}
 										>
 											Read
 										</Link>
 										<Link
-											class="text-white rounded-lg shadow-black bg-pink-600 px-1 py-1 m-1"
+											class="text-white rounded-lg shadow-black hover:bg-pink-400  transition-all bg-pink-600 px-1 py-1 "
 											to={`/edit/${variable.id}`}
 										>
 											Edit
 										</Link>
 										<button
-											class="text-white rounded-lg shadow-black bg-red-600 px-1 py-1 m-1"
+											class="text-white rounded-lg shadow-black bg-red-600 hover:bg-red-400  transition-all px-1 py-1 "
 											onClick={() => handleDelete(variable.id)}
 										>
 											Delete
