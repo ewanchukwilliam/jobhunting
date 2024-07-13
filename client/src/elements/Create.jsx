@@ -28,7 +28,7 @@ function Create() {
         <div class='bg-gray-700 h-full w-full mx-10 flex flex-col items-center'>
             <div class='flex flex-row justify-between items-center w-auto mt-10'>
             		<h3 class="text-6xl px-10">Add application</h3>
-                <Link to='/' class='rounded-lg shadow-black bg-green-600 shadow-lg hover:-translate-y-2 transition px-5 py-3 mx-3'>Home</Link>
+                <Link to='/' class='rounded-full hover:bg-green-400 font-semibold shadow-black bg-green-600 shadow-lg hover:-translate-y-2 transition px-5 py-3 mx-3'>Home</Link>
             </div>
             <form onSubmit={handleSubmit} class="py-2">
                 <div class='form-group my-3 flex justify-between items-center'>
@@ -52,7 +52,7 @@ function Create() {
                     <input class="rounded-md my-2 mx-2 bg-gray-600 h-10 w-60" type='text' name='description' required onChange={(e)=> setValues({...values, description: e.target.value})} />
                 </div>
                 <div class='form-group my-3 flex flex-col items-center'>
-                    <button type='submit' class='rounded-lg shadow-black bg-red-600 shadow-lg hover:-translate-y-2 transition px-5 py-3 mx-3'>Save</button>
+                    <button type='submit' class='rounded-full  shadow-black bg-red-600 shadow-lg hover:-translate-y-2 hover:bg-red-400 transition px-5 py-3 mx-3 font-semibold'>Save</button>
                 </div>
             </form>
         </div>

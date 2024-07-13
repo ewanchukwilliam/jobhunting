@@ -36,7 +36,7 @@ const Header = ({ data }) => {
 						class="h-max rounded-full font-extrabold shadow-black bg-green-600 shadow-lg hover:-translate-y-2 transition px-8 py-5 mx-3"
 						to="/exportable"
 					>
-						Export to Excel
+						Export
 					</Link>
 				</div>
 			</div>
