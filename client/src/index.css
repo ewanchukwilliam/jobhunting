@@ -1,9 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+.hide-scrollbar {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+}
 
 @layer base {
   :root {
@@ -70,4 +77,3 @@
     @apply bg-background text-foreground;
   }
 }
-
