@@ -22,7 +22,7 @@ const Footer = () => {
         transition: { delay: 0, duration: 0.4, ease: "easeIn" },
       }}
     >
-      <div class="gap-2 text-lg min-w-screen py-10 px-5 flex flex-col lg:flex-row justify-between items-center my-3 ">
+      <div class=" text-lg min-w-screen py-10 px-5 flex flex-col lg:flex-row justify-between items-center ">
         <a href="https://www.ewanchukwilliam.com" className="transition-all hover:text-accent">Authors Portfolio!</a>
         <Drawer>
           <DrawerTrigger className="hover:text-accent transition-all">Contact Author</DrawerTrigger>

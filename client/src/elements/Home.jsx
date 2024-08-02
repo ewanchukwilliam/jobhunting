@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Statistics from "../components/Statistics";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Postings from "../components/Postings";
 
 function Home() {
 	const [data, setData] = useState([]);
@@ -30,9 +31,16 @@ function Home() {
 	}
 	data.sort((a, b) => new Date(a.date) - new Date(b.date));
 	return (
-		<div class="text-white font-thin min-h-screen w-100 bg-gray-900 px-5 py-5">
+		<div class="">
 			<Header data={data} />
-			<div class="w-full rounded-xl overflow-x-auto overflow-y-auto max-h-[900px]">
+			<div className="h-screen flex flex-col justify-center">
+				<div className="flex flex-col">
+					<h1 className="text-[50px] text-white tracking-tight px-10">New Postings</h1>
+					<Postings />
+				</div>
+			</div>
+				<h1 className="mt-20 text-[50px] text-white tracking-tight px-10">Submitted Applications</h1>
+			<div class="w-full rounded-xl overflow-x-auto overflow-y-auto lg:max-h-[500px] max-h-[400px]">
 				<table class="rounded-xl bg-gray-800 min-w-full">
 					<thead class="sticky px-2 top-0 bg-gray-800">
 						<tr className="">
