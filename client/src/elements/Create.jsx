@@ -15,8 +15,7 @@ function Create() {
 
     function handleSubmit(e){
         e.preventDefault()
-
-        axios.post('/add_user', values)
+        axios.post('/add_application', values)
         .then((res)=>{
             navigate('/')
             console.log(res)

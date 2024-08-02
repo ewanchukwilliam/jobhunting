@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { PiCaretLeftBold, PiCaretRightBold } from "react-icons/pi";
 import React, { useRef } from "react";
 
+import { Audio } from "react-loader-spinner";
 import {
   Card,
   CardContent,
@@ -13,7 +14,6 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { Audio } from "react-loader-spinner";
 
 const Postings = () => {
   const scrollRef = useRef(null);
@@ -28,16 +28,25 @@ const Postings = () => {
       scrollRef.current.scrollBy({ left: 400, behavior: "smooth" }); // Adjust 200 to your needs
     }
   };
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
+
   useEffect(() => {
-    axios
-      .get("/postings")
-      .then((res) => {
-        console.log(res.data);
-        setData(res.data);
-      })
-      .catch((err) => console.log(err));
+    const fetchData = () => {
+      axios
+        .get("/postings")
+        .then((res) => {
+          console.log(res.data);
+          if (res.data !== null) {
+            setData(res.data);
+          }
+          console.log("fetching data again");
+          setTimeout(fetchData(), 3000);
+        })
+        .catch((err) => console.log(err));
+    };
+    fetchData();
   }, []);
+
   return (
     <div className="flex h-full justify-between items-center gap-2 ">
       <Button
