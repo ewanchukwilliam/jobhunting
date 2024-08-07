@@ -199,9 +199,9 @@ app.get("/postings", (req, res) => {
   res.status(200).json(postings);
 });
 
-app.post("add_user", (req, res) => {
+app.post("/create_user", (req, res) => {
 	sql =
-		"INSERT INTO applications (username , password , email ) VALUES (?, ?, ?)";
+		"INSERT INTO users (username , password , email ) VALUES (?, ?, ?)";
 	const values = [req.body.username, req.body.password, req.body.email];
 	db.query(sql, values, (err, result) => {
 		if (err) {
@@ -210,11 +210,12 @@ app.post("add_user", (req, res) => {
 					message: "Error User Already exists" + err,
 				});
 			}
+			console.log(err)
 			return res.status(500).json({
-				message: "Uknown Error" + err,
+				message: "Unknown Error" + err,
 			});
 		}
-		console.log("application added", result);
+		console.log("new user successfully added", result);
 		return res.json({ success: "Job added successfully" });
 	});
 });
