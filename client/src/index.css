@@ -12,6 +12,28 @@
   scrollbar-width: none; /* for Firefox */
 }
 
+html {
+  scrollbar-width: 10px;
+  /* border-radius: 20px; */
+
+  scrollbar-color: #00ff99 #1f2937;
+  overscroll-behavior-y: none;
+  background-clip: content-box;
+	
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #1f2937;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #1f2937;
+    border-radius: 20px;
+    border: 10px solid transparent;
+    background-clip: content-box;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

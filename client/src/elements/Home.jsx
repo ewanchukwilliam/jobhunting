@@ -35,11 +35,15 @@ function Home() {
 			<Header data={data} />
 			<div className="h-screen flex flex-col justify-center">
 				<div className="flex flex-col">
-					<h1 className="text-[50px] text-white tracking-tight px-10">New Postings</h1>
+					<h1 className="text-[50px] text-white tracking-tight px-10">
+						New Postings
+					</h1>
 					<Postings />
 				</div>
 			</div>
-				<h1 className="mt-20 text-[50px] text-white tracking-tight px-10">Submitted Applications</h1>
+			<h1 className="mt-20 text-[50px] text-white tracking-tight px-10">
+				Submitted Applications
+			</h1>
 			<div class="w-full rounded-xl overflow-x-auto overflow-y-auto lg:max-h-[500px] max-h-[400px]">
 				<table class="rounded-xl bg-gray-800 min-w-full">
 					<thead class="sticky px-2 top-0 bg-gray-800">
