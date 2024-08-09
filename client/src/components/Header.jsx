@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 
 import LoginUser from "./LoginUser";
 import CreateUser from "./CreateUser";
+import GimmeCookie from "./GimmeCookie";
 
 const Header = ({ data }) => {
   return (
@@ -43,6 +44,7 @@ const Header = ({ data }) => {
             >
               New Application
             </Link>
+						<GimmeCookie />
 						<CreateUser />
 						<LoginUser />
           </div>
