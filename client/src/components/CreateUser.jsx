@@ -102,6 +102,8 @@ const CreateUser = () => {
           setErrMsg("No Server Response");
         } else if (err.response?.status === 409) {
           setErrMsg("Username Already Taken");
+        } else if (err.response?.status === 408) {
+          setErrMsg("Email Already Taken");
         } else {
           setErrMsg("Registration Failed");
         }

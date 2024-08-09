@@ -5,6 +5,7 @@ const path = require("path");
 const { format } = require("date-fns");
 const ip = require("ip");
 const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 
@@ -196,28 +197,65 @@ let postings = null;
 })();
 
 app.get("/postings", (req, res) => {
-  res.status(200).json(postings);
+  if (postings.length > 0) {
+    res.status(200);
+  }
+  res.status(400).json(postings);
 });
 
 app.post("/create_user", (req, res) => {
-	sql =
-		"INSERT INTO users (username , password , email ) VALUES (?, ?, ?)";
-	const values = [req.body.username, req.body.password, req.body.email];
-	db.query(sql, values, (err, result) => {
-		if (err) {
-			if (err.code === "ER_DUP_ENTRY") {
-				return res.status(409).json({
-					message: "Error User Already exists" + err,
-				});
-			}
-			console.log(err)
-			return res.status(500).json({
-				message: "Unknown Error" + err,
-			});
-		}
-		console.log("new user successfully added", result);
-		return res.json({ success: "Job added successfully" });
-	});
+  sql = "INSERT INTO users (username , password , email ) VALUES (?, ?, ?)";
+  const values = [req.body.username, req.body.password, req.body.email];
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      if (err.code === "ER_DUP_ENTRY") {
+        if (err.sqlMessage.includes("users.unique_username")) {
+          return res.status(409).json({
+            message: "Error User Already exists" + err,
+          });
+        } else if (err.sqlMessage.includes("users.unique_email")) {
+          return res.status(408).json({
+            message: "Error Email Already exists" + err,
+          });
+        }
+      }
+      console.log(err);
+      return res.status(500).json({
+        message: "Unknown Error" + err,
+      });
+    }
+    console.log("new user successfully added", result);
+    return res.json({ success: "User successfully added" });
+  });
+});
+
+app.post("/login_user", (req, res) => {
+  sql1 = "SELECT 1 FROM users WHERE username = ?";
+  sql2 = "SELECT 1 FROM users WHERE password = ?";
+  db.query(sql1, [req.body.username], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    if (result.length === 0) {
+      return res.status(400).json({ message: "User does not exist" });
+    }
+    db.query(sql2, [req.body.password], (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      if (result.length === 0) {
+        return res.status(401).json({ message: "Incorrect password" });
+      }
+      return res.status(200).json({ message: "User Logged in" });
+    });
+  });
+});
+
+const serverSecret = "Penisbutt123!";
+app.post("/auth", (req, res) => {
+  const payload = { user:req.body.username, pass:req.body.password };
+  const token = jwt.sign(payload, serverSecret, { expiresIn: "10s" });
+  return res.status(200).cookie("token", token, { httpOnly: true });
 });
 
 app.listen(PORT, () =>
