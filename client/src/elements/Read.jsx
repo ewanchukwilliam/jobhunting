@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+import { axiosInstance } from "../authentication/AuthProvider";
 
 function Read() {
   const [data, setData] = useState([]);
   const { id } = useParams();
   useEffect(() => {
-    axios
+    axiosInstance
       .get(`/get_applications/${id}`)
       .then((res) => {
         setData(res.data);

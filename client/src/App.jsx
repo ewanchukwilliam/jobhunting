@@ -13,11 +13,11 @@ function App() {
     <div className="font-primary text-white font-thin h-full  min-h-screen w-100 bg-gray-900">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route element={<ProtectedRoutes />}>
+            <Route path="/" element={<Home />} />
             <Route path="/create" element={<Create />} />
             <Route path="/edit/:id" element={<Edit />} />
             <Route path="/read/:id" element={<Read />} />
+          <Route element={<ProtectedRoutes />}>
           </Route>
         </Routes>
       </BrowserRouter>

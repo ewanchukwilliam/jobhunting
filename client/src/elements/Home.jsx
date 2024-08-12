@@ -1,10 +1,10 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Statistics from "../components/Statistics";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Postings from "../components/Postings";
+import { axiosInstance } from "../authentication/AuthProvider";
 
 function Home() {
 	const [data, setData] = useState([]);
@@ -12,7 +12,7 @@ function Home() {
 	useEffect(() => {
 		if (deleted) {
 			setDeleted(false);
-			axios
+			axiosInstance
 				.get("/applications")
 				.then((res) => {
 					setData(res.data);
@@ -22,7 +22,7 @@ function Home() {
 	}, [deleted]);
 
 	function handleDelete(id) {
-		axios
+		axiosInstance
 			.delete(`/delete/${id}`)
 			.then((res) => {
 				setDeleted(true);

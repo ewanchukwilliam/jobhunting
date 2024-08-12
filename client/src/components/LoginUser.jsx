@@ -1,5 +1,3 @@
-"use client";
-
 import {
 	Dialog,
 	DialogContent,
@@ -8,17 +6,17 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "./ui/dialog";
+} from "../components/ui/dialog";
 
-import { Input } from "./ui/input";
+import { Input } from "../components/ui/input";
 import { Label } from "recharts";
-import { Button } from "./ui/button";
+import { Button } from "../components/ui/button";
 import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import AuthContext from "../elements/AuthProvider";
+import AuthContext from "../authentication/AuthProvider";
 
 const LoginUser = () => {
-	const { setAuth } = useContext(AuthContext);
+	const { auth, setAuth } = useContext(AuthContext);
 	const userRef = useRef();
 	const errRef = useRef();
 
@@ -36,7 +34,6 @@ const LoginUser = () => {
 	useEffect(() => {
 		setErrMsg("");
 	}, [user, pwd]);
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log(user, pwd);
@@ -47,7 +44,10 @@ const LoginUser = () => {
 		axios
 			.post("/login_user", userData)
 			.then((res) => {
-				console.log(res.data.message);
+				console.log(res?.data?.message);
+				const token = res?.data?.accessToken;
+				console.log(JSON.stringify({ user, pwd, token }));
+				setAuth({ username:user, password:pwd, accessToken:token,message:"user successfully logged in"});
 				setUser("");
 				setPassword("");
 				setSuccess(true);
@@ -63,14 +63,17 @@ const LoginUser = () => {
 					setErrMsg("Unknown error has occurred");
 				}
 				if (errRef?.current) {
-					errRef.current.focus()
+					errRef.current.focus();
 				}
 			});
 	};
 	return (
 		<>
-			{success ? (
-				<h1>You are Logged in!</h1>
+			{success || auth?.user ? (
+				<div>
+					<h1>You are Logged in!</h1>
+					<h1>User: {auth?.user}</h1>
+				</div>
 			) : (
 				<Dialog>
 					<DialogTrigger asChild>
@@ -83,7 +86,7 @@ const LoginUser = () => {
 							className={
 								errMsg
 									? "text-white/70 bg-gray-800 rounded-3xl p-5 m-3"
-									: "offscreen" + " text-white"
+									: "offscreen" 
 							}
 							aria-live="assertive"
 						>
