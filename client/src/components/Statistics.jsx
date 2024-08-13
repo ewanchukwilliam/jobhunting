@@ -64,7 +64,7 @@ const Footer = ({ data }) => {
 		},
 	};
 
-	console.log(dates);
+	// console.log(dates);
 	return (
 		<motion.div
 			initial={{ opacity: 0 }}

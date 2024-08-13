@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { axiosInstance } from "../authentication/AuthProvider";
+import axios from "axios";
 
 function Edit() {
 	const [data, setData] = useState([]);
 	const { id } = useParams();
 	useEffect(() => {
-		axiosInstance
+		axios
 			.get(`/get_applications/${id}`)
 			.then((res) => {
 				setData(res.data);
@@ -19,7 +19,7 @@ function Edit() {
 	function handleSubmit(e) {
 		e.preventDefault();
 
-		axiosInstance
+		axios
 			.post(`/edit_user/${id}`, data[0])
 			.then((res) => {
 				navigate("/");

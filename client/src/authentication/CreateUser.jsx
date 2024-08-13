@@ -53,15 +53,15 @@ const CreateUser = () => {
 
   useEffect(() => {
     const result = USER_REGEX.test(user);
-    console.log(result);
-    console.log(user);
+   //console.log(result);
+   //console.log(user);
     setValidName(result);
   }, [user]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd);
-    console.log(result);
-    console.log(pwd);
+   //console.log(result);
+   //console.log(pwd);
     setValidPwd(result);
     const match = pwd === matchPwd;
     setValidMatch(match);
@@ -69,8 +69,8 @@ const CreateUser = () => {
 
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
-    console.log(result);
-    console.log(email);
+   //console.log(result);
+   //console.log(email);
     setValidEmail(result);
   }, [email]);
 
@@ -88,7 +88,7 @@ const CreateUser = () => {
     }
     // setSuccess(true);
     const userData = { username: user, password: pwd, email: email };
-    console.log(`${user}, ${pwd}, ${email}`);
+   //console.log(`${user}, ${pwd}, ${email}`);
     axios
       .post("/create_user", userData)
       .then((res) => {
@@ -129,7 +129,7 @@ const CreateUser = () => {
                 className={
                   errMsg
                     ? "text-white/70 bg-gray-800 rounded-3xl p-5 m-3"
-                    : "offscreen" + " text-white"
+                    : "offscreen text-white"
                 }
                 aria-live="assertive"
               >

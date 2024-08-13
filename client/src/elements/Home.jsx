@@ -5,12 +5,14 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Postings from "../components/Postings";
 import { axiosInstance } from "../authentication/AuthProvider";
+import useAuth from "../authentication/useAuth";
 
 function Home() {
 	const [data, setData] = useState([]);
 	const [deleted, setDeleted] = useState(true);
+	const { auth } = useAuth();
 	useEffect(() => {
-		if (deleted) {
+		if (deleted || auth?.user) {
 			setDeleted(false);
 			axiosInstance
 				.get("/applications")
@@ -19,7 +21,7 @@ function Home() {
 				})
 				.catch((err) => console.log(err));
 		}
-	}, [deleted]);
+	}, [deleted, auth]);
 
 	function handleDelete(id) {
 		axiosInstance

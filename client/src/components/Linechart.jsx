@@ -16,17 +16,21 @@ import {
 } from "./ui/card";
 
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "./ui/chart";
+import useAuth from "../authentication/useAuth";
 
 const Linechart = () => {
 	const [data, setData] = useState([]);
+	const { auth } = useAuth();
 	useEffect(() => {
-		axios
-			.get("/applications/stats")
-			.then((res) => {
-				setData(res.data); // Assuming the API returns the array directly
-			})
-			.catch((err) => console.log(err));
-	}, []);
+		if (auth?.user) {
+			axios
+				.get("/applications/stats")
+				.then((res) => {
+					setData(res.data); // Assuming the API returns the array directly
+				})
+				.catch((err) => console.log(err));
+		}
+	}, [auth]);
 
 	const chartConfig = {
 		day: {
