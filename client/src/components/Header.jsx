@@ -9,6 +9,7 @@ import CreateUser from "../authentication/CreateUser";
 import { useContext } from "react";
 import AuthContext from "../authentication/AuthProvider";
 import CookieTester from "./CookieTester";
+import LogoutUser from "../authentication/LogoutUser";
 
 const Header = ({ data }) => {
 	const { auth } = useContext(AuthContext);
@@ -56,6 +57,7 @@ const Header = ({ data }) => {
 						</div>
 						<LoginUser />
 						<CookieTester />
+						<LogoutUser />
 					</div>
 				</div>
 				<motion.div

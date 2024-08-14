@@ -69,7 +69,7 @@ const LoginUser = () => {
   };
   return (
     <>
-      {success || auth?.user ? (
+      {auth?.user ? (
         <div>
           <h1>You are Logged in!</h1>
           <h1>User: {auth?.user}</h1>

@@ -12,14 +12,17 @@ function Home() {
 	const [deleted, setDeleted] = useState(true);
 	const { auth } = useAuth();
 	useEffect(() => {
-		if (deleted || auth?.user) {
+		if (deleted || auth?.user || auth?.logout) {
 			setDeleted(false);
 			axiosInstance
 				.get("/api/applications")
 				.then((res) => {
 					setData(res.data);
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => {
+					setData([]);
+					console.log(err);
+				});
 		}
 	}, [deleted, auth]);
 

@@ -6,9 +6,9 @@ const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config();
 const authRoutes = require("./src/routes/auth");
-const applicationRoutes = require("./src/routes/applications.js");
-const { PORT } = require("./src/config/config.js");
-const scrapedJobs = require("./src/scrape/scraper.js");
+const applicationRoutes = require("./src/routes/applications");
+const userRoutes = require("./src/routes/users");
+const { PORT } = require("./src/config/config");
 const db = require("./src/db/db.js");
 const app = express();
 // Middleware for parsing JSON and cookies
@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Mount routers under specific paths
 app.use("/auth", authRoutes);
 app.use("/api", applicationRoutes);
+app.use("/user", userRoutes);
 // Start the server
 app.listen(PORT, () =>
   console.log(`Server running on port ${ip.address()}:${PORT}`),
