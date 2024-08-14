@@ -90,7 +90,7 @@ const CreateUser = () => {
     const userData = { username: user, password: pwd, email: email };
    //console.log(`${user}, ${pwd}, ${email}`);
     axios
-      .post("/create_user", userData)
+      .post("/auth/create_user", userData)
       .then((res) => {
         console.log(res);
         console.log(JSON.stringify(res));

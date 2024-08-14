@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 	console.log(token);
 	if (!auth.user) {
 		axiosInstance
-			.get("/refresh_user")
+			.get("/api/refresh_user")
 			.then((res) => {
 				setAuth({
 					user: res.data.username,
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 				if (err.response.status === 400) {
 					console.log("invalid accessToken");
 				} else {
-					console.log("server side error in refresh token");
+					console.log("server side error in refresh token",err);
 				}
 			});
 	}

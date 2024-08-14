@@ -10,7 +10,7 @@ function Read() {
 	useEffect(() => {
 		if (auth?.user) {
 			axiosInstance
-				.get(`/get_applications/${id}`)
+				.get(`/api/get_applications/${id}`)
 				.then((res) => {
 					setData(res.data);
 				})

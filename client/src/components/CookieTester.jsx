@@ -9,7 +9,7 @@ const CookieTester = () => {
 	const handleClick = async (e) => {
 		e.preventDefault();
 		axiosInstance
-			.get("/cookietester")
+			.get("/api/cookietester")
 			.then((res) => {
 				if (res.status === 200) {
 					console.log("cookie authenticated successfully");

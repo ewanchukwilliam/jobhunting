@@ -33,7 +33,7 @@ const Postings = () => {
   useEffect(() => {
     const fetchData = () => {
       axios
-        .get("/postings")
+        .get("/api/postings")
         .then((res) => {
           // console.log(res.data);
           if (res?.status === 200) {

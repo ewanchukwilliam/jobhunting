@@ -36,13 +36,13 @@ const LoginUser = () => {
   }, [user, pwd]);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user, pwd);
+    console.log("user passwords =>",user, pwd);
     const userData = {
       username: user,
       password: pwd,
     };
     axios
-      .post("/login_user", userData)
+      .post("auth/login_user", userData)
       .then((res) => {
         console.log(res?.data?.message);
         const token = res?.data?.accessToken;

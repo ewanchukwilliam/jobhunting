@@ -17,7 +17,7 @@ function Create() {
   function handleSubmit(e) {
     e.preventDefault();
     axiosInstance
-      .post("/add_application", values)
+      .post("/api/add_application", values)
       .then((res) => {
         navigate("/");
         console.log(res);

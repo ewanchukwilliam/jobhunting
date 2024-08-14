@@ -24,7 +24,7 @@ const Linechart = () => {
 	useEffect(() => {
 		if (auth?.user) {
 			axios
-				.get("/applications/stats")
+				.get("/api/applications/stats")
 				.then((res) => {
 					setData(res.data); // Assuming the API returns the array directly
 				})

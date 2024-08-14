@@ -7,7 +7,7 @@ function Edit() {
 	const { id } = useParams();
 	useEffect(() => {
 		axios
-			.get(`/get_applications/${id}`)
+			.get(`/auth/get_applications/${id}`)
 			.then((res) => {
 				setData(res.data);
 			})

@@ -15,7 +15,7 @@ function Home() {
 		if (deleted || auth?.user) {
 			setDeleted(false);
 			axiosInstance
-				.get("/applications")
+				.get("/api/applications")
 				.then((res) => {
 					setData(res.data);
 				})

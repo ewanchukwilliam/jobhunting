@@ -43,7 +43,7 @@ const Footer = ({ data }) => {
 	const [weeklyops, setData] = useState([]);
 	useEffect(() => {
 		axios
-			.get("/applications/stats")
+			.get("/api/applications/stats")
 			.then((res) => {
 				setData(res.data); // Assuming the API returns the array directly
 			})
@@ -64,7 +64,7 @@ const Footer = ({ data }) => {
 		},
 	};
 
-	// console.log(dates);
+	console.log(dates);
 	return (
 		<motion.div
 			initial={{ opacity: 0 }}
