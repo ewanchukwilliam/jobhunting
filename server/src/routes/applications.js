@@ -10,6 +10,7 @@ const {
   getPostings,
   refreshUser,
   getCookie,
+	getStatistics
 } = require("../db/dbOperations.js");
 const validateCookie = require("../utils/cookieUtils.js");
 
@@ -23,5 +24,7 @@ router.get("/get_applications/:id", validateCookie, getApplicationId);
 router.get("/applications/stats", validateCookie, getStats);
 router.get("/postings", getPostings);
 router.get("/cookietester", validateCookie, getCookie);
+
+router.get("/statistics", validateCookie, getStatistics);
 
 module.exports = router;

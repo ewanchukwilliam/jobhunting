@@ -1,5 +1,3 @@
-"use client";
-
 import axios from "axios";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -9,9 +7,9 @@ import { Card } from "./ui/card";
 
 const Footer = ({ data }) => {
 	let max = 0;
-	const dates = {};
 	let streak = 1;
 	let currentstreak = 1;
+	const dates = {};
 	for (let n = 0; n < data.length; n++) {
 		const date = data[n].date.split(",")[0];
 		var day = parseInt(date.split(" ")[1].replace(",", ""));
@@ -56,7 +54,6 @@ const Footer = ({ data }) => {
 			weeklymax = week;
 		}
 	}
-
 	const chartConfig = {
 		day: {
 			label: "Applied: ",

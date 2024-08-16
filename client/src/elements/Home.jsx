@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import Postings from "../components/Postings";
 import { axiosInstance } from "../authentication/AuthProvider";
 import useAuth from "../authentication/useAuth";
+import Stats from "../components/Stats";
 
 function Home() {
 	const [data, setData] = useState([]);
@@ -111,6 +112,7 @@ function Home() {
 				</table>
 			</div>
 			<Statistics data={data} />
+			<Stats />
 			<Footer />
 		</div>
 	);
