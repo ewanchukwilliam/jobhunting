@@ -9,11 +9,13 @@ const SECRET_KEY = process.env.SECRET_KEY;
 const REFRESH_SECRET = process.env.REFRESH_SECRET;
 
 let postings = null;
+/*
 (async () => {
 	console.log("Starting the scrape");
 	postings = await scrapedJobs();
 	console.log("Postings obtained");
 })();
+*/
 
 const loginUser = (req, res) => {
 	sql1 = "SELECT 1 FROM users WHERE username = ?";

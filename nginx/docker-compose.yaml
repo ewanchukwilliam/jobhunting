@@ -1,0 +1,65 @@
+version: "3.8"
+services:
+  nginx:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: ${NGINX_HOST}
+    env_file: .env
+    ports:
+      - ${NGINX_PORT}:${NGINX_PORT}
+    expose:
+      - ${NGINX_PORT}
+    restart: always
+    networks:
+      - internalnet
+  frontend:
+    build:
+      context: ../client/
+      dockerfile: Dockerfile
+    container_name: ${CLIENT_HOST}
+    ports:
+      - ${CLIENT_PORT}:${CLIENT_PORT}
+    environment:
+      - PORT=3000
+    expose:
+      - ${CLIENT_PORT}
+    env_file:
+      - .env
+    depends_on:
+      - nginx
+      - backend
+    networks:
+      - internalnet
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    env_file: .env
+    ports:
+      - ${MYSQL_PORT}:${MYSQL_PORT}
+    expose:
+      - ${MYSQL_PORT}
+    volumes:
+      - ./mysql-init/:/docker-entrypoint-initdb.d
+      - $HOME/database:/var/lib/mysql
+    networks:
+      - internalnet
+  backend:
+    build:
+      context: ../server/
+      dockerfile: ../server/Dockerfile
+    container_name: ${SERVER_HOST}
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    expose:
+      - ${SERVER_PORT}
+    env_file: .env
+    networks:
+      - internalnet
+    depends_on:
+      - mysql
+    restart: always
+networks:
+  internalnet:
+    driver: bridge

@@ -10,8 +10,6 @@ RUN npm install
 COPY . .
 # Make port available to the world outside this container
 EXPOSE 3000
-# Define environment variable
-ENV NODE_ENV=production
 # Run npm start when the container launches
 CMD ["npm", "start"]
 
