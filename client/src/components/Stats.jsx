@@ -14,6 +14,8 @@ const Stats = () => {
 				setDaily(res.data.daily);
 				setWeekly(res.data.weekly);
 				setMonthly(res.data.monthly);
+				console.log(JSON.stringify( res.data.weekly ))
+				console.log(JSON.stringify( res.data.monthly ))
 			})
 			.catch((err) => {
 				console.log(err.response.message);
@@ -23,16 +25,16 @@ const Stats = () => {
 			});
 	}, [auth]);
 	return (
-		<table className="flex flex-col w-full">
+		<table classNameName="flex flex-col w-full">
 			<div>
 				{daily.map((stat, ind) => {
 					return (
-						<tr class="m-2">
-							<td class="text-center border-gray-900 border-l px-2">Daily</td>
-							<td class="text-center border-gray-900 border-l px-2">
+						<tr className="m-2">
+							<td className="text-center border-gray-900 border-l px-2">Daily</td>
+							<td className="text-center border-gray-900 border-l px-2">
 								{stat.Day}
 							</td>
-							<td class="text-center border-gray-900 border-l px-2">
+							<td className="text-center border-gray-900 border-l px-2">
 								{stat.daily}
 							</td>
 						</tr>
@@ -42,13 +44,13 @@ const Stats = () => {
 			<div>
 				{weekly.map((stat, ind) => {
 					return (
-						<tr class="m-2">
-							<td class="text-center border-gray-900 border-l px-2">Weekly</td>
-							<td class="text-center border-gray-900 border-l px-2">
+						<tr className="m-2">
+							<td className="text-center border-gray-900 border-l px-2">Weekly</td>
+							<td className="text-center border-gray-900 border-l px-2">
 								{stat.WeeklyCount}
 							</td>
-							<td class="text-center border-gray-900 border-l px-2">
-								{stat.Year}
+							<td className="text-center border-gray-900 border-l px-2">
+								{stat.Week}
 							</td>
 						</tr>
 					);
@@ -57,13 +59,13 @@ const Stats = () => {
 			<div>
 				{monthly.map((stat, ind) => {
 					return (
-						<tr class="m-2">
-							<td class="text-center border-gray-900 border-l px-2">Monthly</td>
-							<td class="text-center border-gray-900 border-l px-2">
+						<tr className="m-2">
+							<td className="text-center border-gray-900 border-l px-2">Monthly</td>
+							<td className="text-center border-gray-900 border-l px-2">
 								{stat.MonthlyCount}
 							</td>
-							<td class="text-center border-gray-900 border-l px-2">
-								{stat.Year}
+							<td className="text-center border-gray-900 border-l px-2">
+								{stat.Month}
 							</td>
 						</tr>
 					);

@@ -1,7 +1,4 @@
-"use client";
-
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
 import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
@@ -17,34 +14,55 @@ import {
 
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "./ui/chart";
 import useAuth from "../authentication/useAuth";
+import { axiosInstance } from "../authentication/AuthProvider";
 
-const Linechart = () => {
+import { parseISO, format } from "date-fns";
+
+function formatDate(utcDateString) {
+	const date = parseISO(utcDateString);
+	const formattedDate = format(date, "yyyy-MM-dd");
+	return formattedDate;
+}
+const MonthlyChart = () => {
 	const [data, setData] = useState([]);
 	const { auth } = useAuth();
 	useEffect(() => {
-		if (auth?.user) {
-			axios
-				.get("/api/applications/stats")
-				.then((res) => {
-					setData(res.data); // Assuming the API returns the array directly
-				})
-				.catch((err) => console.log(err));
-		}
+		axiosInstance
+			.get("/api/statistics")
+			.then((res) => {
+				const firstNonZeroIndex = res.data.monthly.findIndex( (item) => item.MonthlyCount !== 0,);
+				const filteredData = res.data.monthly.slice(firstNonZeroIndex);
+				// const convertedAndFilteredData = filteredData.map((item) => {
+				// 	let date = new Date(item.Year, item.Month - 1, 1);
+				// 	let monthName = format(date, "MMMM", {
+				// 		locale: require("date-fns/locale/en-CA"),
+				// 	});
+				// 	return {
+				// 		...item,
+				// 		Month: monthName,
+				// 	};
+				// });
+				setData(filteredData);
+			})
+			.catch((err) => {
+				console.log(err.response.message);
+				setData([]);
+			});
 	}, [auth]);
 
 	const chartConfig = {
-		day: {
-			label: "Applied: ",
-			color: "hsl(var(--chart-1))",
+		Day: {
+			label: "daily",
+			color: "#00ff99",
 		},
 	};
 
 	return (
-		<Card>
+		<Card className="w-full">
 			<CardHeader>
-				<CardTitle>Weekly Tracker</CardTitle>
+				<CardTitle>Monthly Progress</CardTitle>
 				<CardDescription>
-					Showing total applications applied to per week
+					Showing total applications applied to per month
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -59,22 +77,21 @@ const Linechart = () => {
 					>
 						<CartesianGrid vertical={false} />
 						<XAxis
-							Key="week"
+							dataKey="Month"
 							tickLine={false}
+							tickMargin={10}
 							axisLine={false}
-							tickMargin={8}
-							tickFormatter={(value) => value}
 						/>
 						<ChartTooltip
 							cursor={false}
 							content={<ChartTooltipContent indicator="line" />}
 						/>
 						<Area
-							dataKey="day"
+							dataKey="MonthlyCount"
 							type="natural"
-							fill="var(--color-day)"
+							fill="#00ff99"
 							fillOpacity={0.4}
-							stroke="var(--color-day)"
+							stroke="#00ff99"
 						/>
 					</AreaChart>
 				</ChartContainer>
@@ -85,9 +102,9 @@ const Linechart = () => {
 						<div className="flex items-center gap-2 font-medium leading-none">
 							Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
 						</div>
-						<div className="flex items-center gap-2 leading-none text-muted-foreground">
+						<div className="flex items-center gap-2 leading-none text-white/70">
 							{data.length > 0
-								? `${data[0].week} - ${data[data.length - 1].week}`
+								? `${data[0].Month}-${data[0].Year}  to ${data[data.length - 1].Month}-${data[data.length - 1].Year}`
 								: "No data available"}
 						</div>
 					</div>
@@ -97,4 +114,4 @@ const Linechart = () => {
 	);
 };
 
-export default Linechart;
+export default MonthlyChart;

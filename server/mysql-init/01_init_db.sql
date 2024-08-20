@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS JobHunting;
-USE JobHunting;
+USE JobHunting
 CREATE TABLE IF NOT EXISTS applications (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS applications (
     description TEXT,
     userid CHAR(36),
     FOREIGN KEY (userid) REFERENCES users(unique_id) ON DELETE CASCADE
-);
+)
 
 CREATE TABLE IF NOT EXISTS users (
     id INT NOT NULL AUTO_INCREMENT,

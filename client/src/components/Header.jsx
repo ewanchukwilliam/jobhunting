@@ -22,9 +22,9 @@ const Header = ({ data }) => {
 			}}
 		>
 			<div className="flex justify-between">
-				<div class="w-screen  lg:w-1/2 gap-2 text-lg flex flex-col items-center lg:flex-col justify-center  lg:justify-center lg:items-center p-10">
-					<h1 class="mb-20 text-[100px] tracking-tighter">TrackCoop</h1>
-					<h2 class="text-[40px] text-white/70 tracking-tight">
+				<div className="w-screen  lg:w-1/2 gap-2 text-lg flex flex-col items-center lg:flex-col justify-center  lg:justify-center lg:items-center p-10">
+					<h1 className="mb-20 text-[100px] tracking-tighter">TrackCoop</h1>
+					<h2 className="text-[40px] text-white/70 tracking-tight">
 						Your Coop Tracker
 					</h2>
 					<p className="text-white/50">
@@ -32,7 +32,7 @@ const Header = ({ data }) => {
 						websites all in one place. Stay organized and informed with
 						TrackCoop!
 					</p>
-					<div class="h-5 p-20 flex flex-col justify-center items-center  bg-gray-700 rounded-full">
+					<div className="h-5 p-20 flex flex-col justify-center items-center  bg-gray-700 rounded-full">
 						<p>Total applied</p>
 						<CountUp
 							end={data.length}
@@ -43,7 +43,7 @@ const Header = ({ data }) => {
 					</div>
 					<div className="flex items-center gap-2">
 						<Link
-							class={
+							className={
 								auth?.user
 									? "h-max rounded-full font-extrabold shadow-black bg-green-600 shadow-lg hover:-translate-y-2 transition px-8 py-5 mx-3"
 									: "hidden"

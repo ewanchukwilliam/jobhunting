@@ -21,14 +21,13 @@ services:
     ports:
       - ${CLIENT_PORT}:${CLIENT_PORT}
     environment:
-      - PORT=3000
+      - PORT=${CLIENT_PORT}
     expose:
       - ${CLIENT_PORT}
     env_file:
       - .env
     depends_on:
       - nginx
-      - backend
     networks:
       - internalnet
   mysql:
@@ -41,14 +40,14 @@ services:
     expose:
       - ${MYSQL_PORT}
     volumes:
-      - ./mysql-init/:/docker-entrypoint-initdb.d
+      - ../server/mysql-init/:/docker-entrypoint-initdb.d
       - $HOME/database:/var/lib/mysql
     networks:
       - internalnet
   backend:
     build:
       context: ../server/
-      dockerfile: ../server/Dockerfile
+      dockerfile: Dockerfile
     container_name: ${SERVER_HOST}
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}

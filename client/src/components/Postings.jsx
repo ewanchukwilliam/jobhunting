@@ -31,6 +31,8 @@ const Postings = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
+    let retryCount = 0; // Initialize retry counter
+    const maxRetries = 5; // Set the maximum number of retries
     const fetchData = () => {
       axios
         .get("/api/postings")
@@ -44,7 +46,10 @@ const Postings = () => {
           if (err?.response?.status === 400) {
             console.log("fetching data again");
             setData(null);
-            setTimeout(fetchData, 5000);
+            retryCount++;
+            if (retryCount < maxRetries) {
+              setTimeout(fetchData, 5000);
+            }
           }
         });
     };
@@ -52,7 +57,7 @@ const Postings = () => {
   }, []);
 
   return (
-    <div className="flex h-full justify-between items-center gap-2 ">
+    <div className="flex h-full justify-between items-center gap-2">
       <Button
         onClick={scrollLeft}
         className="hover:bg-accent bg-gray-600 hover:text-black transition-all py-32 rounded-r-lg active:bg-accent/50 active:duration-50"

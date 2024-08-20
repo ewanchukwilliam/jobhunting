@@ -14,8 +14,8 @@ const app = express();
 // Middleware for parsing JSON and cookies
 // CORS configuration
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || "http://localhost:3000",
-  optionsSuccessStatus: 200,
+	origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+	optionsSuccessStatus: 200,
 };
 app.use(express.json());
 app.use(cookieParser());
@@ -28,29 +28,29 @@ app.use("/api", applicationRoutes);
 app.use("/user", userRoutes);
 // Start the server
 app.listen(PORT, () =>
-  console.log(`Server running on port ${ip.address()}:${PORT}`),
+	console.log(`Server running on port ${ip.address()}:${PORT}`),
 );
 // Scrape data asynchronously
 
 console.log(
-  `Host:${process.env.DB_HOST} ,user:${process.env.DB_USER},password: ${process.env.DB_PASSWORD},database${process.env.DB_NAME},PORT: ${process.env.PORT}`,
+	`Host:${process.env.DB_HOST} ,user:${process.env.DB_USER},password: ${process.env.DB_PASSWORD},database${process.env.DB_NAME},PORT: ${process.env.PORT}`,
 );
 //
 let attemptCount = 0;
 const maxAttempts = 5;
 let intervalId = setInterval(() => {
-  if (attemptCount >= maxAttempts) {
-    console.log("Failed to connect after several attempts.");
-    clearInterval(intervalId);
-    return;
-  }
-  db.connect((err) => {
-    if (err) {
-      console.log("Attempt", attemptCount + 1, "failed:", err);
-      attemptCount++;
-    } else {
-      console.log("Connected to database on attempt", attemptCount + 1);
-      clearInterval(intervalId);
-    }
-  });
+	if (attemptCount >= maxAttempts) {
+		console.log("Failed to connect after several attempts.");
+		clearInterval(intervalId);
+		return;
+	}
+	db.connect((err) => {
+		if (err) {
+			console.log("Attempt", attemptCount + 1, "failed:", err);
+			attemptCount++;
+		} else {
+			console.log("Connected to database on attempt", attemptCount + 1);
+			clearInterval(intervalId);
+		}
+	});
 }, 5000);

@@ -204,10 +204,11 @@ const getStats = (req, res) => {
             WEEK(date, 1) AS week, 
             COUNT(*) AS count
         FROM applications
+				WHERE userid = ?
         GROUP BY month, week
-        ORDER BY month, week;
+        ORDER BY month, week
     `;
-	db.query(sql, (err, results) => {
+	db.query(sql, [req.user.unique_id], (err, results) => {
 		if (err) {
 			console.error("Error fetching application stats", err);
 			return res
@@ -288,29 +289,85 @@ const logoutUser = (req, res) => {
 };
 
 const getStatistics = async (req, res) => {
-	const sqlday =
-		"SELECT DATE(date) AS Day, COUNT(*) AS daily FROM applications WHERE userid = ? GROUP BY DATE(date);";
-	const sqlweek =
-		"SELECT YEAR(date) AS Year, WEEK(date) AS Week, COUNT(*) AS WeeklyCount FROM applications WHERE userid = ? GROUP BY YEAR(date), WEEK(date);";
-	const sqlmonth =
-		"SELECT YEAR(date) AS Year, MONTH(date) AS Month, COUNT(*) AS MonthlyCount FROM applications WHERE userid = ? GROUP BY YEAR(date), MONTH(date);";
-	try {
-		var [dailyResults, weeklyResults, monthlyResults] = await Promise.all([
-			db.promise().query(sqlday, [req.user.unique_id]),
-			db.promise().query(sqlweek, [req.user.unique_id]),
-			db.promise().query(sqlmonth, [req.user.unique_id]),
-		]);
-		res.status(200).json({
-			message: "Statistics fetched successfully",
-			daily: dailyResults[0], // Accessing the first element of the result array
-			weekly: weeklyResults[0],
-			monthly: monthlyResults[0],
-		});
-	} catch (err) {
-		console.error("Error parsing statistics", err);
-		res.status(500).json({ message: "Failed to fetch statistics" });
-	}
+    const sqlday = `
+        WITH RECURSIVE RecursiveDate AS (
+            SELECT CURRENT_DATE() AS date
+            UNION ALL
+            SELECT DATE_SUB(date, INTERVAL 1 DAY)
+            FROM RecursiveDate
+            WHERE DATE_SUB(date, INTERVAL 1 DAY) >= DATE_SUB(CURRENT_DATE(), INTERVAL 50 DAY)
+        )
+        SELECT r.date AS Day, IFNULL(COUNT(a.date), 0) AS daily
+        FROM RecursiveDate r
+        LEFT JOIN applications a ON DATE(a.date) = r.date AND a.userid = ?
+        GROUP BY r.date
+        ORDER BY r.date ASC;  
+    `;
+const sqlweek = `
+    WITH RECURSIVE Weeks AS (
+        SELECT DATE_SUB(CURRENT_DATE(), INTERVAL WEEKDAY(CURRENT_DATE()) DAY) AS week_start
+        UNION ALL
+        SELECT DATE_SUB(week_start, INTERVAL 7 DAY)
+        FROM Weeks
+        WHERE week_start > DATE_SUB(CURRENT_DATE(), INTERVAL 50 WEEK)
+    )
+    SELECT YEAR(week_start) AS Year, WEEK(week_start) AS Week, IFNULL(COUNT(a.date), 0) AS WeeklyCount
+    FROM Weeks
+    LEFT JOIN applications a ON YEAR(a.date) = YEAR(week_start) AND WEEK(a.date) = WEEK(week_start) AND a.userid = ?
+    GROUP BY YEAR(week_start), WEEK(week_start)
+    ORDER BY YEAR(week_start), WEEK(week_start) ASC;
+`;
+const sqlmonth = `
+    WITH RECURSIVE Months AS (
+        SELECT LAST_DAY(DATE_SUB(CURRENT_DATE(), INTERVAL DAY(CURRENT_DATE())-1 DAY)) AS month_start
+        UNION ALL
+        SELECT DATE_SUB(month_start, INTERVAL 1 MONTH)
+        FROM Months
+        WHERE month_start > DATE_SUB(CURRENT_DATE(), INTERVAL 12 MONTH)
+    )
+    SELECT YEAR(month_start) AS Year, MONTH(month_start) AS Month, IFNULL(COUNT(a.date), 0) AS MonthlyCount
+    FROM Months
+    LEFT JOIN applications a ON YEAR(a.date) = YEAR(month_start) AND MONTH(a.date) = MONTH(month_start) AND a.userid = ?
+    GROUP BY YEAR(month_start), MONTH(month_start)
+    ORDER BY YEAR(month_start), MONTH(month_start) ASC;
+`;
+    try {
+        var [dailyResults, weeklyResults, monthlyResults] = await Promise.all([
+            db.promise().query(sqlday, [req.user.unique_id]),
+            db.promise().query(sqlweek, [req.user.unique_id]),
+            db.promise().query(sqlmonth, [req.user.unique_id]),
+        ]);
+        res.status(200).json({
+            message: "Statistics fetched successfully",
+            daily: dailyResults[0], // Accessing the first element of the result array
+            weekly: weeklyResults[0],
+            monthly: monthlyResults[0],
+        });
+    } catch (err) {
+        console.error("Error parsing statistics", err);
+        res.status(500).json({ message: "Failed to fetch statistics" });
+    }
 };
+
+const getUserInfo = (req, res) => {
+	sql = "SELECT username, email FROM users WHERE login_token = ?";
+	db.query(sql, [req.cookies.jwt], (err, result) => {
+		if (err) {
+			return res.status(401).json({
+				message: `Unauthorized access token err message: ${err}`,
+			});
+		}
+		if (result[0].length === 0) {
+			return res.status(400).json({ messgage: "no user found invalid cookie" });
+		}
+		return res.status(200).json({
+			message: "successfuly returned info",
+			username: result[0].username,
+			email: result[0].email,
+		});
+	});
+};
+
 module.exports = {
 	loginUser,
 	createUser,
@@ -325,4 +382,5 @@ module.exports = {
 	getCookie,
 	logoutUser,
 	getStatistics,
+	getUserInfo,
 };
