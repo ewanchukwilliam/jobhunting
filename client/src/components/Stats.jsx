@@ -14,7 +14,7 @@ const Stats = () => {
 				setDaily(res.data.daily);
 				setWeekly(res.data.weekly);
 				setMonthly(res.data.monthly);
-				console.log(JSON.stringify(res.data))
+				console.log(JSON.stringify( res.data ))
 			})
 			.catch((err) => {
 				console.log(err.response.message);
