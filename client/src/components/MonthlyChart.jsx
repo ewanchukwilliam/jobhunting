@@ -32,16 +32,6 @@ const MonthlyChart = () => {
 			.then((res) => {
 				const firstNonZeroIndex = res.data.monthly.findIndex( (item) => item.MonthlyCount !== 0,);
 				const filteredData = res.data.monthly.slice(firstNonZeroIndex);
-				// const convertedAndFilteredData = filteredData.map((item) => {
-				// 	let date = new Date(item.Year, item.Month - 1, 1);
-				// 	let monthName = format(date, "MMMM", {
-				// 		locale: require("date-fns/locale/en-CA"),
-				// 	});
-				// 	return {
-				// 		...item,
-				// 		Month: monthName,
-				// 	};
-				// });
 				setData(filteredData);
 			})
 			.catch((err) => {

@@ -38,8 +38,6 @@ const DailyChart = () => {
           Day: format(parseISO(entry.Day), "yyyy-MM-dd"),
         }));
         setData(formattedData);
-
-        console.log(JSON.stringify(res.data.daily));
       })
       .catch((err) => {
         console.log(err.response.message);

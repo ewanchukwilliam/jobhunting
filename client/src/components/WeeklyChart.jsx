@@ -30,7 +30,6 @@ const WeeklyChart = () => {
     axiosInstance
       .get("/api/statistics")
       .then((res) => {
-
 				const firstNonZeroIndex = res.data.weekly.findIndex( (item) => item.WeeklyCount !== 0,);
 				const filteredData = res.data.weekly.slice(firstNonZeroIndex);
         setData(filteredData);

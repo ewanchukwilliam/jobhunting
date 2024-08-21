@@ -4,7 +4,7 @@ import WeeklyChart from "./WeeklyChart";
 
 const AllCharts = () => {
 	return (
-		<div className="w-full h-auto flex flex-cols gap-2 rounded-xl p-5 m-5">
+		<div className="w-auto h-full flex gap-2 rounded-xl p-5 m-5">
 			<DailyChart />
 			<WeeklyChart />
 			<MonthlyChart />
