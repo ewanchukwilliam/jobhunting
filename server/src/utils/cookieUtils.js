@@ -14,7 +14,7 @@ const validateCookie = (req, res, next) => {
   db.query(sql, [decoded.username], (err, results) => {
     if (err) {
       console.log("cookie interceptor error");
-      return err.status(402).hson({ message: "query error" });
+      return err.status(402).json({ message: "query error" });
     }
     if (results.length === 0) {
       return res
