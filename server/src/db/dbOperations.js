@@ -354,11 +354,11 @@ const getUserInfo = (req, res) => {
 	db.query(sql, [req.cookies.jwt], (err, result) => {
 		if (err) {
 			return res.status(401).json({
-				message: `Unauthorized access token err message: ${err}`,
+				message: `unknown error has occured with database`,
 			});
 		}
 		if (result[0].length === 0) {
-			return res.status(400).json({ messgage: "no user found invalid cookie" });
+			return res.status(400).json({ message: "no user found invalid cookie" });
 		}
 		return res.status(200).json({
 			message: "successfuly returned info",

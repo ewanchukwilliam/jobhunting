@@ -9,27 +9,21 @@ const validateCookie = (req, res, next) => {
   if (!cookie) {
     return res.status(401).json({ message: "No cookie provided" });
   }
-  try {
-    const decoded = jwt.verify(cookie, SECRET_KEY);
-    const sql = "SELECT username, email, unique_id FROM users WHERE username = ?";
-		db.promise().query(sql, [decoded.username])
-      .then(([results]) => {
-        if (results.length === 0) {
-          return res
-            .status(404)
-            .json({ message: "No user found with the provided token" });
-        }
-        req.user = results[0]; // Attach user to request object
-        next(); // Proceed to next middleware/route handler
-      })
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json({ message: err.message });
-      });
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ message: err.message });
-  }
+  const decoded = jwt.verify(cookie, SECRET_KEY);
+  const sql = "SELECT username, email, unique_id FROM users WHERE username = ?";
+  db.query(sql, [decoded.username], (err, results) => {
+    if (err) {
+      console.log("cookie interceptor error");
+      return err.status(402).hson({ message: "query error" });
+    }
+    if (results.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No user found with the provided token" });
+    }
+    req.user = results[0]; // Attach user to request object
+    next(); // Proceed to next middleware/route handler
+  });
 };
 
 module.exports = validateCookie;
