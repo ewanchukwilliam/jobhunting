@@ -35,7 +35,7 @@ const MonthlyChart = () => {
 				setData(filteredData);
 			})
 			.catch((err) => {
-				console.log(err.response.message);
+				// console.log(err.response.message);
 				setData([]);
 			});
 	}, [auth]);

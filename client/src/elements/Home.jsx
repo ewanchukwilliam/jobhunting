@@ -24,7 +24,7 @@ function Home() {
         })
         .catch((err) => {
           setData([]);
-          console.log(err);
+          console.log("server side error cant fetch table data");
         });
     }
   }, [deleted, auth]);

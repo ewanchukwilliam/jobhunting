@@ -3,45 +3,44 @@ import { createContext, useState } from "react";
 
 const AuthContext = createContext({});
 export const axiosInstance = axios.create({
-	withCredentials: true,
+  withCredentials: true,
 });
 axiosInstance.interceptors.request.use((config) => {
-	const token = localStorage.getItem("accessToken");
-	if (token) {
-		config.headers.Authorization = `Bearer ${token}`;
-		// window.location.reload();
-	}
-	return config;
+  const token = localStorage.getItem("accessToken");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+    // window.location.reload();
+  }
+  return config;
 });
 
 export const AuthProvider = ({ children }) => {
-	const [auth, setAuth] = useState({});
-	const token = localStorage.getItem("accessToken");
-	console.log(token);
-	if (!auth.user) {
-		axiosInstance
-			.get("/api/refresh_user")
-			.then((res) => {
-				setAuth({
-					user: res.data.username,
-					accessToken: res.data.accessToken,
-					message: res.data.message,
-				});
-				console.log("user successfully re-logged in using cookie on page load");
-			})
-			.catch((err) => {
-				if (err.response.status === 400) {
-					console.log("invalid accessToken");
-				} else {
-					console.log("server side error in refresh token",err);
-				}
-			});
-	}
-	return (
-		<AuthContext.Provider value={{ auth, setAuth, axiosInstance }}>
-			{children}
-		</AuthContext.Provider>
-	);
+  const [auth, setAuth] = useState({});
+  if (!auth.user) {
+    axiosInstance
+      .get("/api/refresh_user")
+      .then((res) => {
+        setAuth({
+          user: res.data.username,
+          accessToken: res.data.accessToken,
+          message: res.data.message,
+        });
+        console.log("user successfully re-logged in using cookie on page load");
+      })
+      .catch((err) => {
+        if (err.response.status === 402) {
+          console.log("query error");
+        }
+        if (err.response.status === 404) {
+          console.log("no user for that cookie");
+        }
+      });
+  }
+  return (
+    <AuthContext.Provider value={{ auth, setAuth, axiosInstance }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthContext;

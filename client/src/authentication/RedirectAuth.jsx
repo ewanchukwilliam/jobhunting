@@ -5,9 +5,7 @@ const ProtectedRoutes = () => {
   const { auth } = useAuth();
   if (auth?.user) {
     return <Outlet />;
-    // Redirect to the home page if not authenticated
   }
   return <Navigate to="/" replace />;
-  // Render children routes if authenticated
 };
 export default ProtectedRoutes;

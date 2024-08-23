@@ -40,7 +40,7 @@ const DailyChart = () => {
         setData(formattedData);
       })
       .catch((err) => {
-        console.log(err.response.message);
+        console.log("unable to fetch user data");
         setData([]);
       });
   }, [auth]);
