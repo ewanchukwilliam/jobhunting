@@ -13,7 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-
+import {FaHome}from "react-icons/fa"
 const Menu = () => {
   const { auth } = useAuth();
   const [user, setUser] = useState("");
@@ -34,13 +34,13 @@ const Menu = () => {
         setSuccess(false);
       });
   }, [auth]);
-
   return (
     <Sheet className="text-white">
       <div className="fixed flex flex-col justify-end h-screen items-center w-full pointer-events-none z-50">
         <SheetTrigger asChild>
-          <Button variant="outline" className="menuButton bg-accent">
-            Menu
+          <Button variant="outline" className="group flex flex-row justify-between items-between  p-3 px-4 hover:bg-accent-hover hover:w-[275px] transition-all duration-200 mb-20 text-3xl h-auto w-[250px] bg-accent z-50 pointer-events-auto border-none">
+						<FaHome className="text-accent bg-white rounded-full p-2 min-w-14 min-h-14 text-6xl group-hover:scale-110 transition-transform transform duration-300"/>
+						<div className="w-full flex flex-col items-center justify-center tracking-tight">Menu</div>
           </Button>
         </SheetTrigger>
       </div>

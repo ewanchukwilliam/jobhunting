@@ -10,6 +10,7 @@ import { useContext } from "react";
 import AuthContext from "../authentication/AuthProvider";
 import CookieTester from "./CookieTester";
 import LogoutUser from "../authentication/LogoutUser";
+import { Button } from "./ui/button";
 
 const Header = ({ data }) => {
 	const { auth } = useContext(AuthContext);
@@ -27,7 +28,7 @@ const Header = ({ data }) => {
 					<h2 className="text-[40px] text-white/70 tracking-tight">
 						Your Coop Tracker
 					</h2>
-					<p className="text-white/50">
+					<p className="text-white/50 mb-3 text-center">
 						Effortlessly track your co-op job progress and explore top industry
 						websites all in one place. Stay organized and informed with
 						TrackCoop!
@@ -41,11 +42,11 @@ const Header = ({ data }) => {
 							className="text-7xl font-bold"
 						/>
 					</div>
-					<div className="flex items-center gap-2">
+					<div className="flex items-center gap-2 mt-4">
 						<Link
 							className={
 								auth?.user
-									? "h-max rounded-full font-extrabold shadow-black bg-green-600 shadow-lg hover:-translate-y-2 transition px-8 py-5 mx-3"
+									? "h-max rounded-full text-xl font-bold shadow-black bg-accent hover:bg-accent-hover transition-all text-center duration-300 shadow-lg hover:-translate-y-2 transition px-8 py-5 mx-3"
 									: "hidden"
 							}
 							to="/create"

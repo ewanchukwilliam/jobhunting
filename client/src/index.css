@@ -11,13 +11,6 @@
   -ms-overflow-style: none; /* for Internet Explorer, Edge */
   scrollbar-width: none; /* for Firefox */
 }
-.menuButton {
-  position: relative;
-  padding: 40px 128px; /* Converted py-10 px-32 to regular CSS */
-  margin: 32px 0; /* Converted my-8 to regular CSS */
-  font-size: 2rem; /* Converted text-2xl to regular CSS */
-  z-index: 50; /* High z-index */
-}
 
 html {
   scrollbar-width: 10px;

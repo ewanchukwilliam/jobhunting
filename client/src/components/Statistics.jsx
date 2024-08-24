@@ -28,7 +28,13 @@ const Footer = ({ data }) => {
 				}, 0);
 				setmaxMonth(maxM);
 			})
-			.catch((err) => console.log("no cookie for statistics"));
+			.catch((err) => {
+				setmaxDay(0);
+				setmaxWeek(0);
+				setmaxMonth(0);
+				console.log("no cookie for statistics")
+			});
+
 	}, [auth]);
 
 	return (
@@ -39,8 +45,8 @@ const Footer = ({ data }) => {
 				transition: { delay: 0, duration: 0.4, ease: "easeIn" },
 			}}
 		>
-			<div className="gap-2 text-lg flex flex-col lg:flex-row justify-between items-center my-3">
-				<div className="flex flex-col  items-center">
+			<div className="gap-2 text-lg flex flex-col lg:flex-row w-full justify-between items-center my-3">
+				<div className="flex flex-col justify-between w-full items-center">
 					<h3 className="text-5xl font-semibold text-center">Current Stats</h3>
 					<div className="h-10 p-20 my-2 flex flex-col justify-center items-center  bg-gray-700 rounded-full">
 						<p>Current Streak</p>
@@ -52,7 +58,7 @@ const Footer = ({ data }) => {
 						/>
 					</div>
 				</div>
-				<div className="flex gap-2 w-full max-w-[1000px]">
+				<div className=" gap-2 w-full max-w-[1000px]">
 					<Card className="text-xl flex flex-col bg-gray-600 p-5 justify-between h-[400px]">
 						<div className="h-full hover:scale-105 hover:text-2xl hover:font-semibold hover:text-accent transition-all my-2 flex gap-3 justify-center items-center  bg-gray-700 rounded-full">
 							<p>Daily Maximum</p>
