@@ -10,7 +10,6 @@ import { useContext } from "react";
 import AuthContext from "../authentication/AuthProvider";
 import CookieTester from "./CookieTester";
 import LogoutUser from "../authentication/LogoutUser";
-import { Button } from "./ui/button";
 
 const Header = ({ data }) => {
 	const { auth } = useContext(AuthContext);

@@ -23,7 +23,6 @@ const LoginUser = () => {
   const [user, setUser] = useState("");
   const [pwd, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (userRef.current) {
@@ -50,7 +49,6 @@ const LoginUser = () => {
         setAuth({ user, pwd, token });
         setUser("");
         setPassword("");
-        setSuccess(true);
       })
       .catch((err) => {
         // console.log(err);
@@ -85,7 +83,7 @@ const LoginUser = () => {
               className={
                 errMsg
                   ? "text-white/70 bg-gray-800 rounded-3xl p-5 m-3"
-                  : "offscreen" + " text-white"
+                  : "offscreen" 
               }
               aria-live="assertive"
             >

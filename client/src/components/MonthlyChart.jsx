@@ -16,13 +16,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "./ui/chart";
 import useAuth from "../authentication/useAuth";
 import { axiosInstance } from "../authentication/AuthProvider";
 
-import { parseISO, format } from "date-fns";
 
-function formatDate(utcDateString) {
-	const date = parseISO(utcDateString);
-	const formattedDate = format(date, "yyyy-MM-dd");
-	return formattedDate;
-}
 const MonthlyChart = () => {
 	const [data, setData] = useState([]);
 	const { auth } = useAuth();

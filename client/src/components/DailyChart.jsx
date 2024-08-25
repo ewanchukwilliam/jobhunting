@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
 import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
@@ -19,11 +18,6 @@ import { axiosInstance } from "../authentication/AuthProvider";
 
 import { parseISO, format } from "date-fns";
 
-function formatDate(utcDateString) {
-  const date = parseISO(utcDateString);
-  const formattedDate = format(date, "yyyy-MM-dd");
-  return formattedDate;
-}
 const DailyChart = () => {
   const [data, setData] = useState([]);
   const { auth } = useAuth();

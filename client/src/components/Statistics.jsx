@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import useAuth from "../authentication/useAuth";
-import DailyChart from "./DailyChart";
 import { Card } from "./ui/card";
 
 const Footer = ({ data }) => {
