@@ -8,9 +8,9 @@ const AllCharts = () => {
   return (
     <Tabs defaultValue="daily" className="w-full h-1/2 mt-4">
       <TabsList className="grid w-full grid-cols-3">
-        <TabsTrigger value="daily">daily</TabsTrigger>
-        <TabsTrigger value="weekly">weekly</TabsTrigger>
-        <TabsTrigger value="monthly">monthly</TabsTrigger>
+        <TabsTrigger value="daily">Daily</TabsTrigger>
+        <TabsTrigger value="weekly">Weekly</TabsTrigger>
+        <TabsTrigger value="monthly">Monthly</TabsTrigger>
       </TabsList>
       <TabsContent value="daily">
         <DailyChart className="h-60"/>
