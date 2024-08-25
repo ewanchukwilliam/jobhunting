@@ -25,8 +25,10 @@ const DailyChart = () => {
     axiosInstance
       .get("/api/statistics")
       .then((res) => {
-				const firstNonZeroIndex = res.data.daily.findIndex( (item) => item.daily !== 0,);
-				const resData = res.data.daily.slice(firstNonZeroIndex);
+        const firstNonZeroIndex = res.data.daily.findIndex(
+          (item) => item.daily !== 0,
+        );
+        const resData = res.data.daily.slice(firstNonZeroIndex);
         const formattedData = resData.map((entry) => ({
           ...entry,
           Day: format(parseISO(entry.Day), "yyyy-MM-dd"),
@@ -55,7 +57,7 @@ const DailyChart = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig}  className="w-full h-[300px]">
           <AreaChart
             accessibilityLayer
             data={data}
