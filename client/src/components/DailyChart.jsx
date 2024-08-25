@@ -76,10 +76,10 @@ const DailyChart = () => {
 						/>
             <XAxis
               dataKey="Day"
-              tickLine={false}
+              tickLine={true}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 10)}
+              tickFormatter={(value) => value.slice(5, 10)}
             />
             <ChartTooltip
               cursor={false}

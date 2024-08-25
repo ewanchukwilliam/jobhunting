@@ -45,7 +45,7 @@ const Header = ({ data }) => {
 						<Link
 							className={
 								auth?.user
-									? "h-max rounded-full text-xl font-bold shadow-black bg-accent hover:bg-accent-hover transition-all text-center duration-300 shadow-lg hover:-translate-y-2 transition px-8 py-5 mx-3"
+									? "tracking-tight h-max rounded-full text-xl font-bold shadow-black bg-accent hover:bg-accent-hover transition-all text-center duration-300 shadow-lg hover:-translate-y-2 transition px-8 py-5 mx-3"
 									: "hidden"
 							}
 							to="/create"

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { TrendingUp } from "lucide-react";
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import {
   Card,
@@ -16,7 +16,6 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "./ui/chart";
 import useAuth from "../authentication/useAuth";
 import { axiosInstance } from "../authentication/AuthProvider";
 
-
 const WeeklyChart = () => {
   const [data, setData] = useState([]);
   const { auth } = useAuth();
@@ -24,8 +23,10 @@ const WeeklyChart = () => {
     axiosInstance
       .get("/api/statistics")
       .then((res) => {
-				const firstNonZeroIndex = res.data.weekly.findIndex( (item) => item.WeeklyCount !== 0,);
-				const filteredData = res.data.weekly.slice(firstNonZeroIndex);
+        const firstNonZeroIndex = res.data.weekly.findIndex(
+          (item) => item.WeeklyCount !== 0,
+        );
+        const filteredData = res.data.weekly.slice(firstNonZeroIndex);
         setData(filteredData);
       })
       .catch((err) => {
@@ -60,12 +61,19 @@ const WeeklyChart = () => {
             }}
           >
             <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="week"
+            <YAxis
+              dataKey={data.Week}
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 10)}
+            />
+
+            <XAxis
+              dataKey="Week"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => value}
             />
             <ChartTooltip
               cursor={false}
@@ -89,7 +97,7 @@ const WeeklyChart = () => {
             </div>
             <div className="flex items-center gap-2 leading-none text-white/70">
               {data.length > 0
-                ? `${data[0].Week}-${data[0].Year} - ${data[data.length - 1].Week}-${data[data.length-1].Year}`
+                ? `${data[0].Week}-${data[0].Year} - ${data[data.length - 1].Week}-${data[data.length - 1].Year}`
                 : "No data available"}
             </div>
           </div>
@@ -100,4 +108,3 @@ const WeeklyChart = () => {
 };
 
 export default WeeklyChart;
-

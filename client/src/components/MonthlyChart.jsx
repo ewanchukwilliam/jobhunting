@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { TrendingUp } from "lucide-react";
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import {
 	Card,
@@ -60,6 +60,12 @@ const MonthlyChart = () => {
 						}}
 					>
 						<CartesianGrid vertical={false} />
+            <YAxis
+              dataKey={data.Month}
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+            />
 						<XAxis
 							dataKey="Month"
 							tickLine={false}

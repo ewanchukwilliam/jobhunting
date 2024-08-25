@@ -43,13 +43,13 @@ function Home() {
       <Header data={data} />
       <div className="h-screen flex flex-col justify-center">
         <div className="flex flex-col">
-          <h1 className="text-[50px] text-white tracking-tight px-10">
+          <h1 className="text-[50px] text-white  px-10 tracking-tighter">
             New Postings
           </h1>
           <Postings />
         </div>
       </div>
-      <h1 className="mt-20 text-[50px] text-white tracking-tight px-10">
+      <h1 className="mt-20 text-[50px] text-white tracking-tighter px-10">
         Submitted Applications
       </h1>
       <div className="w-full rounded-xl overflow-x-auto overflow-y-auto lg:max-h-[500px] max-h-[400px]">
