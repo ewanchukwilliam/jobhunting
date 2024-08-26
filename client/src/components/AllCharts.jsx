@@ -16,7 +16,7 @@ const AllCharts = () => {
 					initial={{ opacity: 0 }}
 					animate={{
 						opacity: 1,
-						transition: { delay: 0, duration: 0.3, ease: "easeIn" },
+						transition: { delay: 0, duration: 0.3, ease: "easeInOut" },
 					}}
 				>
 					{" "}
@@ -28,7 +28,7 @@ const AllCharts = () => {
 					initial={{ opacity: 0 }}
 					animate={{
 						opacity: 1,
-						transition: { delay: 0, duration: 0.3, ease: "easeIn" },
+						transition: { delay: 0, duration: 0.3, ease: "easeInOut" },
 					}}
 				>
 					{" "}
@@ -40,7 +40,7 @@ const AllCharts = () => {
 					initial={{ opacity: 0 }}
 					animate={{
 						opacity: 1,
-						transition: { delay: 0, duration: 0.3, ease: "easeIn" },
+						transition: { delay: 0, duration: 0.3, ease: "easeInOut" },
 					}}
 				>
 					{" "}

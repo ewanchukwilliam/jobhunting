@@ -65,7 +65,9 @@ const Menu = () => {
 					</Button>
 				</SheetTrigger>
 			</div>
-			<>				{
+			<>
+				{" "}
+				{
 					<SheetContent side="left">
 						<SheetHeader>
 							<SheetTitle>
@@ -86,7 +88,7 @@ const Menu = () => {
 								className="hover:bg-accent bg-transparent group border-none w-full flex justify-start px-10 text-lg gap-2"
 							>
 								<FaHome className="text-accent group-hover:text-white" />
-								<Link to="/">
+								<Link to="/" className="w-full h-full text-start">
 									Home
 								</Link>
 							</Button>
@@ -95,7 +97,7 @@ const Menu = () => {
 								className="hover:bg-accent bg-transparent group border-none w-full flex justify-start px-10 text-lg gap-2"
 							>
 								<FaWpforms className="text-accent group-hover:text-white" />
-								<Link className="group-focus" to={`/Create`}>
+								<Link className="w-full h-full text-start" to={`/Create`}>
 									Create Application
 								</Link>
 							</Button>
