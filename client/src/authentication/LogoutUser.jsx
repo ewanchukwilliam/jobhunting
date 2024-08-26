@@ -1,4 +1,5 @@
 import {
+    ButtonTrigger,
 	Dialog,
 	DialogContent,
 	DialogDescription,
@@ -11,8 +12,9 @@ import { Button } from "../components/ui/button";
 import useAuth from "./useAuth";
 import { axiosInstance } from "./AuthProvider";
 import { useState } from "react";
+import { FaSignOutAlt } from "react-icons/fa";
 
-const LogoutUser = () => {
+const LogoutUser = ({buttonProps,IconComponent}) => {
 	const { auth, setAuth } = useAuth();
 	const [logout, setLogout] = useState(false);
 
@@ -39,19 +41,16 @@ const LogoutUser = () => {
 	return (
 		<>
 			{logout && !auth?.user ? (
-				<div>
-					<h1>Successfully logged out!</h1>
-				</div>
+				<>
+				</>
 			) : (
 				<Dialog>
-					<DialogTrigger>
-						<Button
-							className={ !auth?.user ? "hidden" : "bg-red-600"}
-							variant="outline"
-						>
-							Logout
-						</Button>
-					</DialogTrigger>
+          <ButtonTrigger
+            buttonProps={buttonProps}
+            IconComponent={IconComponent}
+          >
+            Sign Out
+          </ButtonTrigger>
 					<DialogContent className="sm:max-w-[425px]">
 						<DialogHeader>
 							<DialogTitle>User Logout page</DialogTitle>
@@ -60,7 +59,8 @@ const LogoutUser = () => {
 							</DialogDescription>
 						</DialogHeader>
 						<DialogFooter>
-							<Button type="submit" onClick={handleClick} variant="outline">
+							<Button type="submit" onClick={handleClick} variant="outline" className="flex gap-2 justify-center items-center text-center">
+									<FaSignOutAlt />
 								Logout
 							</Button>
 						</DialogFooter>

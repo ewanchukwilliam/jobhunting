@@ -12,6 +12,19 @@
   scrollbar-width: none; /* for Firefox */
 }
 
+/* styles.css */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.group:hover .spin-on-hover {
+  animation: spin 1s 1;
+}
+
 html {
   scrollbar-width: 10px;
   /* border-radius: 20px; */

@@ -8,9 +8,8 @@ import LoginUser from "../authentication/LoginUser";
 import CreateUser from "../authentication/CreateUser";
 import { useContext } from "react";
 import AuthContext from "../authentication/AuthProvider";
-import CookieTester from "./CookieTester";
 import LogoutUser from "../authentication/LogoutUser";
-
+import { FaNewspaper, FaWpforms, FaSignInAlt, FaUserEdit, FaSignOutAlt} from "react-icons/fa";
 const Header = ({ data }) => {
 	const { auth } = useContext(AuthContext);
 	return (
@@ -45,19 +44,40 @@ const Header = ({ data }) => {
 						<Link
 							className={
 								auth?.user
-									? "tracking-tight h-max rounded-full text-xl font-bold shadow-black bg-accent hover:bg-accent-hover transition-all text-center duration-300 shadow-lg hover:-translate-y-2 transition px-8 py-5 mx-3"
+									? "tracking-tight h-max rounded-full text-xl font-bold bg-accent hover:bg-accent-hover transition-all text-center duration-300 shadow-lg hover:scale-105 transition p-4  py-5 mx-3 flex flex-row gap-3 items-center text-center justify-center"
 									: "hidden"
 							}
 							to="/create"
 						>
+							<FaWpforms />
 							New Application
 						</Link>
 						<div className={auth?.user ? "hidden" : ""}>
-							<CreateUser />
+							<CreateUser
+								buttonProps={{
+									className:
+										"flex flex-row gap-2 items-center text-center justify-center rounded-full hover:bg-accent px-2 py-2 transition-all group px-5",
+
+								}}
+							IconComponent={FaUserEdit}
+							/>
 						</div>
-						<LoginUser />
-						<CookieTester />
-						<LogoutUser />
+						<LoginUser
+							buttonProps={{
+								className:
+									"flex flex-row gap-2 items-center text-center justify-center rounded-full hover:bg-accent px-2 py-2 transition-all group px-5",
+							}}
+							IconComponent={FaSignInAlt}
+						/>
+						<LogoutUser 
+							buttonProps={{
+								className:
+									"flex flex-row gap-2 items-center text-center justify-center rounded-full hover:bg-red-600 px-2 py-2 transition-all group px-5",
+							}}
+							IconComponent={FaSignOutAlt}
+
+
+						/>
 					</div>
 				</div>
 				<motion.div

@@ -131,11 +131,7 @@ const getApplications = (req, res) => {
 				.status(500)
 				.json({ message: "Server Error fetching applications" });
 		}
-		const formattedResults = result.map((item) => ({
-			...item,
-			date: format(new Date(item.date), "MMMM d, yyyy, h:mm a"),
-		}));
-		return res.json(formattedResults);
+		return res.json(result);
 	});
 };
 const deleteApplication = (req, res) => {

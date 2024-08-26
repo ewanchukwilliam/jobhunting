@@ -8,6 +8,7 @@ import { axiosInstance } from "../authentication/AuthProvider";
 import useAuth from "../authentication/useAuth";
 import Menu from "../components/Menu";
 import AllCharts from "../components/AllCharts";
+import { format } from "date-fns";
 
 function Home() {
   const [data, setData] = useState([]);
@@ -19,7 +20,12 @@ function Home() {
       axiosInstance
         .get("/api/applications")
         .then((res) => {
-          setData(res.data);
+          const formattedResults = res.data.map((item) => ({
+            ...item,
+            date: format(new Date(item.date), "MMMM d, yyyy, h:mm a"),
+          }));
+
+          setData(formattedResults);
         })
         .catch((err) => {
           setData([]);
@@ -75,16 +81,16 @@ function Home() {
                   <td className="text-center border-gray-900 border-l px-2">
                     {variable.date}
                   </td>
-                  <td className="text-left border-gray-800  px-2 ">
+                  <td className="text-left border-gray-800  px-2 max-w-36 overflow-hidden whitespace-nowrap text-ellipsis">
                     {variable.title}
                   </td>
-                  <td className="hidden lg:table-cell text-left ">
+                  <td className="hidden lg:table-cell text-left max-w-36 overflow-hidden whitespace-nowrap text-ellipsis">
                     {variable.company}
                   </td>
-                  <td className="hidden lg:table-cell text-left ">
+                  <td className="hidden lg:table-cell text-left max-w-36 overflow-hidden whitespace-nowrap text-ellipsis">
                     {variable.location}
                   </td>
-                  <td className="hidden lg:table-cell text-center ">
+                  <td className="hidden lg:table-cell text-center max-w-36 overflow-hidden whitespace-nowrap text-ellipsis">
                     {variable.offer}
                   </td>
                   <td className="flex gap-1 my-3">
@@ -114,7 +120,7 @@ function Home() {
         </table>
       </div>
       <Statistics data={data} />
-			<AllCharts />
+      <AllCharts />
       <Footer />
     </div>
   );

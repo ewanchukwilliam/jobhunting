@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { FaHome, FaSave, FaWpforms } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../authentication/AuthProvider";
+import Menu from "../components/Menu";
 import Postings from "../components/Postings";
 import { Button } from "../components/ui/button";
 
@@ -27,12 +29,14 @@ function Create() {
   }
   return (
     <div className="text-white text-start bg-gray-900 h-auto w-auto bg-green flex flex-col px-20 justify-center items-center bg-rounded">
+      <Menu />
       <div className="bg-gray-700 h-auto w-full mx-10 flex flex-col items-center gap-3">
         <div className="flex flex-row justify-between items-center w-auto ">
           <div className="flex flex-col">
-            <h3 className="text-6xl px-10 text-center tracking-tighter">
+            <div className="flex text-6xl mt-10 text-center tracking-tighter gap-3">
+							<FaWpforms className="text-accent"/>
               Add application
-            </h3>
+            </div>
             <h5 className="text-3xl px-10 text-center text-muted-foreground tracking-tight">
               Paste Relevent information here!
             </h5>
@@ -100,16 +104,18 @@ function Create() {
                 }
               />
             </div>
-            <div className="form-group my-3 flex flex-row justify-center items-center">
-              <Button variant="outline" className="bg-accent">
+            <div className=" my-3 flex flex-row justify-center items-center">
+              <Button variant="outline" className="bg-accent hover:-translate-y-1 transition gap-2">
+							<FaHome />
                 <Link to="/" className="">
                   Home
                 </Link>
               </Button>
               <Button
                 type="submit"
-                className="rounded-full  shadow-black bg-red-600 shadow-lg hover:-translate-y-2 hover:bg-red-400 transition px-5 py-3 mx-3 font-semibold"
+                className="rounded-full  shadow-black bg-red-600 hover:-translate-y-1 hover:bg-red-400 transition px-5 py-3 mx-3 font-semibold gap-2"
               >
+							<FaSave />
                 Save
               </Button>
             </div>

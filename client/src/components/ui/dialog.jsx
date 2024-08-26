@@ -4,6 +4,8 @@ import { X } from "lucide-react"
 
 import { cn } from "../../lib/utils"
 
+import { FaUserEdit } from 'react-icons/fa';
+
 const Dialog = DialogPrimitive.Root
 
 const DialogTrigger = DialogPrimitive.Trigger
@@ -80,6 +82,17 @@ const DialogDescription = React.forwardRef(({ className, ...props }, ref) => (
 ))
 DialogDescription.displayName = DialogPrimitive.Description.displayName
 
+const ButtonTrigger = ({ children, buttonProps, IconComponent}) => {
+  return (
+    <DialogTrigger asChild>
+      <button {...buttonProps}>
+        {IconComponent && <IconComponent className="text-accent group-hover:text-white spin-on-hover"/>}
+        {children}
+      </button>
+    </DialogTrigger>
+  );
+};
+
 export {
   Dialog,
   DialogPortal,
@@ -91,4 +104,5 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
+  ButtonTrigger,
 }

@@ -1,4 +1,5 @@
 import {
+    ButtonTrigger,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -14,8 +15,9 @@ import { Button } from "../components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import useAuth from "./useAuth";
+import { FaSignInAlt } from "react-icons/fa";
 
-const LoginUser = () => {
+const LoginUser = ({buttonProps,IconComponent}) => {
   const { auth, setAuth } = useAuth();
   const userRef = useRef();
   const errRef = useRef();
@@ -68,14 +70,15 @@ const LoginUser = () => {
   return (
     <>
       {auth?.user ? (
-        <div className="rounded-full bg-gray-800 p-3">
-					Success!
-        </div>
+				<></>
       ) : (
         <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline">Login</Button>
-          </DialogTrigger>
+          <ButtonTrigger
+            buttonProps={buttonProps}
+            IconComponent={IconComponent}
+          >
+					Login
+          </ButtonTrigger>
 
           <DialogContent className="sm:max-w-[425px]">
             <p
@@ -132,7 +135,8 @@ const LoginUser = () => {
                 </div>
               </div>
               <DialogFooter>
-                <Button type="submit" variant="outline">
+                <Button type="submit" variant="outline" className="flex flex-row justify-center items-center gap-2">
+										<FaSignInAlt />
                   Login
                 </Button>
               </DialogFooter>

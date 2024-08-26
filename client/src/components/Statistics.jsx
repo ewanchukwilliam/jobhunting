@@ -46,7 +46,7 @@ const Footer = ({ data }) => {
 		>
 			<div className="gap-2 text-lg flex flex-col lg:flex-row w-full justify-between items-center my-3">
 				<div className="flex flex-col justify-between w-full items-center">
-					<h3 className="text-5xl font-semibold text-center">Current Stats</h3>
+					<h3 className="text-5xl font-semibold text-center tracking-tighter">Current Stats</h3>
 					<div className="h-10 p-20 my-2 flex flex-col justify-center items-center  bg-gray-700 rounded-full">
 						<p>Current Streak</p>
 						<CountUp
