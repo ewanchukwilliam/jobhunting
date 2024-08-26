@@ -25,7 +25,6 @@ import {
 } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
-import UserMenu from "../authentication/UserMenu";
 import CreateUser from "../authentication/CreateUser";
 import LoginUser from "../authentication/LoginUser";
 import LogoutUser from "../authentication/LogoutUser";
@@ -56,26 +55,25 @@ const Menu = () => {
 				<SheetTrigger asChild>
 					<Button
 						variant="outline"
-						className="group flex flex-row justify-between items-between  p-3 px-4 hover:bg-accent-hover hover:w-[275px] transition-all duration-200 mb-20 text-3xl h-auto w-[250px] bg-accent z-50 pointer-events-auto border-none"
+						className="group flex  justify-between items-center p-3 px-4 hover:bg-accent-hover hover:w-[275px] transition-all duration-200 mb-20 text-3xl h-auto w-[87px] bg-accent z-50 pointer-events-auto border-none"
 					>
 						<FaHome className="text-accent bg-white rounded-full p-2 min-w-14 min-h-14 text-6xl spin-on-hover transition-transform transform duration-300" />
-						<div className="w-full flex flex-col items-center justify-center tracking-tight">
+						<div className="w-full flex flex-col items-center justify-center tracking-tight opacity-0 group-hover:opacity-100">
 							Menu
 						</div>
 					</Button>
 				</SheetTrigger>
 			</div>
 			<>
-				{" "}
 				{
 					<SheetContent side="left">
 						<SheetHeader>
-							<SheetTitle>
-								<div className="flex flex-row font-normal gap-3 items-center text-center mx-4 mt-4 mb-2 text-2xl tracking-tight">
-									<FaRegUserCircle className="text-accent" />
+							<SheetTitle >
+								<div className="flex flex-row font-normal gap-3 items-center text-center mx-3 mt-4 mb-2 text-3xl tracking-tight">
+									<FaRegUserCircle className="text-accent text-7xl" />
 									{user}
 								</div>
-								<div className="flex font-thin flex-row gap-3 items-center text-center mx-5 text-lg text-white/70">
+								<div className="flex font-thin flex-row gap-3 items-center text-center mx-10 text-lg text-white/70">
 									<FaEnvelope className="text-accent" />
 									{email}
 								</div>

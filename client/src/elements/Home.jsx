@@ -36,7 +36,7 @@ function Home() {
 
   function handleDelete(id) {
     axiosInstance
-      .delete(`/delete/${id}`)
+      .delete(`/api/delete/${id}`)
       .then((res) => {
         setDeleted(true);
       })

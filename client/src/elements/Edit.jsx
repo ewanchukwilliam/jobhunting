@@ -7,7 +7,7 @@ function Edit() {
   const { id } = useParams();
   useEffect(() => {
     axios
-      .get(`/auth/get_applications/${id}`)
+      .get(`/api/get_applications/${id}`)
       .then((res) => {
         setData(res.data);
       })
@@ -18,9 +18,8 @@ function Edit() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
     axios
-      .post(`/edit_user/${id}`, data[0])
+      .post(`/api/edit_user/${id}`, data[0])
       .then((res) => {
         navigate("/");
         console.log(res);
@@ -37,14 +36,14 @@ function Edit() {
       >
         Back
       </Link>
-      {data.map((application) => {
+      {data.map((update) => {
         return (
           <form onSubmit={handleSubmit}>
             <div className="form-group my-3 flex flex-col justify-between">
               <label htmlFor="name">Title</label>
               <input
                 className="rounded-md my-2 mx-2 bg-gray-600 h-8"
-                value={application.title}
+                value={update.title}
                 type="text"
                 name="title"
                 required
@@ -57,7 +56,7 @@ function Edit() {
               <label htmlFor="company">Company</label>
               <input
                 className="rounded-md my-2 mx-2 bg-gray-600 h-8"
-                value={application.company}
+                value={update.company}
                 type="text"
                 name="company"
                 required
@@ -70,7 +69,7 @@ function Edit() {
               <label htmlFor="gender">Location</label>
               <input
                 className="rounded-md my-2 mx-2 bg-gray-600 h-8"
-                value={application.location}
+                value={update.location}
                 type="text"
                 name="location"
                 required
@@ -83,7 +82,7 @@ function Edit() {
               <label htmlFor="age">Offer</label>
               <textarea
                 className="rounded-md my-2 mx-2 bg-gray-600 h-8"
-                value={application.offer}
+                value={update.offer}
                 type="text"
                 name="offer"
                 required
@@ -96,7 +95,7 @@ function Edit() {
               <label htmlFor="age">Description</label>
               <textarea
                 className="rounded-md my-2 mx-2 bg-gray-600 h-20"
-                value={application.description}
+                value={update.description}
                 type="text"
                 name="description"
                 required
