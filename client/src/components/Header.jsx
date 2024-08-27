@@ -10,6 +10,8 @@ import { useContext } from "react";
 import AuthContext from "../authentication/AuthProvider";
 import LogoutUser from "../authentication/LogoutUser";
 import { FaNewspaper, FaWpforms, FaSignInAlt, FaUserEdit, FaSignOutAlt} from "react-icons/fa";
+import { DropdownMenu } from "./ui/dropdown-menu";
+import ApplicationMenu from "./ApplicationMenu";
 const Header = ({ data }) => {
 	const { auth } = useContext(AuthContext);
 	return (

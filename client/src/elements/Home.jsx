@@ -9,6 +9,7 @@ import useAuth from "../authentication/useAuth";
 import Menu from "../components/Menu";
 import AllCharts from "../components/AllCharts";
 import { format } from "date-fns";
+import ApplicationMenu from "../components/ApplicationMenu";
 
 function Home() {
   const [data, setData] = useState([]);
@@ -94,6 +95,7 @@ function Home() {
                     {variable.offer}
                   </td>
                   <td className="flex gap-1 my-3">
+										<ApplicationMenu />
                     <Link
                       className="text-white rounded-lg shadow-black bg-blue-600 hover:bg-blue-400  transition-all px-1 py-1 "
                       to={`/read/${variable.id}`}
