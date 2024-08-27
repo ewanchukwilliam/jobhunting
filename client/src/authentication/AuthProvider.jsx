@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useState } from "react";
+import Menu from "../components/Menu";
 
 const AuthContext = createContext({});
 export const axiosInstance = axios.create({
@@ -39,6 +40,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={{ auth, setAuth, axiosInstance }}>
       {children}
+      <Menu />
     </AuthContext.Provider>
   );
 };

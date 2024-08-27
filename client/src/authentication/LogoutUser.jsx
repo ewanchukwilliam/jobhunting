@@ -6,7 +6,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "../components/ui/dialog";
 import { Button } from "../components/ui/button";
 import useAuth from "./useAuth";
@@ -37,7 +36,6 @@ const LogoutUser = ({ buttonProps, IconComponent }) => {
         }
       });
   };
-
   return (
     <>
       {logout || !auth?.user ? (

@@ -29,7 +29,6 @@ function Create() {
 	}
 	return (
 		<>
-			<Menu />
 			<div className="text-white text-start bg-gray-900 h-auto w-auto bg-green flex flex-col px-20 justify-center items-center bg-rounded">
 				<div className="bg-gray-700 h-auto w-full mx-10 flex flex-col items-center gap-3">
 					<div className="flex flex-row justify-between items-center w-auto ">

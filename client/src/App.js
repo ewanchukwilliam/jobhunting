@@ -5,7 +5,7 @@ import Create from "./elements/Create";
 import Edit from "./elements/Edit";
 import Read from "./elements/Read";
 import ProtectedRoutes from "./authentication/RedirectAuth";
-import { Menu } from "lucide-react";
+import Menu from "./components/Menu";
 
 //styling
 
@@ -13,6 +13,7 @@ function App() {
   return (
     <div className="font-primary text-white font-thin h-full  min-h-screen w-100 bg-gray-900">
       <BrowserRouter>
+			<Menu/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route element={<ProtectedRoutes />}>

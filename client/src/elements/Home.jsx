@@ -46,7 +46,6 @@ function Home() {
   data.sort((a, b) => new Date(a.date) - new Date(b.date));
   return (
     <div className="">
-      <Menu />
       <Header data={data} />
       <div className="h-screen flex flex-col justify-center">
         <div className="flex flex-col">
