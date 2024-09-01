@@ -25,6 +25,42 @@
   animation: spin 1s 1;
 }
 
+/* .blob1 { */
+/*   --start-x: -100px; */
+/*   --start-y: -50px; */
+/*   animation: blob 10s infinite ease-out; */
+/* } */
+/* .blob2 { */
+/*   --start-x: 80px; */
+/*   --start-y: 20px; */
+/*   animation: blob 15s infinite ease-in-out; */
+/* 	animation-delay:1s; */
+/* } */
+/* .blob3 { */
+/*   --start-x: 0px; */
+/*   --start-y: 0px; */
+/*   animation: blob 20s infinite ease-in; */
+/* 	animation-delay:2s; */
+/* } */
+/* @keyframes blob { */
+/*   0% { */
+/*     transform: translate(var(--start-x), var(--start-y)) scale(1); */
+/*   } */
+/*   25% { */
+/*     transform: translate(calc(var(--start-x) + 60px), calc(var(--start-y) - 60px)) scale(1); */
+/*   } */
+/*   50% { */
+/*     transform: translate(calc(var(--start-x) - 20px), calc(var(--start-y) - 20px)) scale(0.9); */
+/*   } */
+/*   75% { */
+/*     transform: translate(calc(var(--start-x) + 100px), calc(var(--start-y) + 0px)) scale(1.1); */
+/*   } */
+/*   100% { */
+/*     transform: translate(var(--start-x), var(--start-y)) scale(1); */
+/*   } */
+/* } */
+
+
 html {
   scrollbar-width: 10px;
   /* border-radius: 20px; */

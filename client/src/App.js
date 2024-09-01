@@ -11,7 +11,7 @@ import Menu from "./components/Menu";
 
 function App() {
   return (
-    <div className="font-primary text-white font-thin h-full  min-h-screen w-100 bg-gray-900">
+    <div className="font-primary text-white font-thin h-full  min-h-screen  bg-gray-900 z-10">
       <BrowserRouter>
 			<Menu/>
         <Routes>

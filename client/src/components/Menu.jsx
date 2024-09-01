@@ -51,7 +51,7 @@ const Menu = () => {
 	}, [auth]);
 	return (
 		<Sheet className="text-white">
-			<div className="fixed flex flex-col justify-end h-screen items-center w-full pointer-events-none z-50">
+			<div className="fixed flex flex-col justify-end h-screen items-center w-screen pointer-events-none z-50">
 				<SheetTrigger asChild>
 					<Button
 						variant="outline"

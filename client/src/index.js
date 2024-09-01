@@ -11,7 +11,6 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <App />
-			<Menu/>
     </AuthProvider>
   </React.StrictMode>,
 );
