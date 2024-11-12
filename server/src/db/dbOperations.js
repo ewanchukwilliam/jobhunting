@@ -63,6 +63,7 @@ const loginUser = (req, res) => {
 							.cookie("jwt", accessToken, {
 								httpOnly: true,
 								sameSite: "None",
+								secure: true, // Add this line
 								maxAge: 60 * 60 * 1000,
 							})
 							.json({ message: "User Logged in", accessToken: accessToken });
@@ -285,7 +286,7 @@ const logoutUser = (req, res) => {
 };
 
 const getStatistics = async (req, res) => {
-    const sqlday = `
+	const sqlday = `
         WITH RECURSIVE RecursiveDate AS (
             SELECT CURRENT_DATE() AS date
             UNION ALL
@@ -299,7 +300,7 @@ const getStatistics = async (req, res) => {
         GROUP BY r.date
         ORDER BY r.date ASC;  
     `;
-const sqlweek = `
+	const sqlweek = `
     WITH RECURSIVE Weeks AS (
         SELECT DATE_SUB(CURRENT_DATE(), INTERVAL WEEKDAY(CURRENT_DATE()) DAY) AS week_start
         UNION ALL
@@ -313,7 +314,7 @@ const sqlweek = `
     GROUP BY YEAR(week_start), WEEK(week_start)
     ORDER BY YEAR(week_start), WEEK(week_start) ASC;
 `;
-const sqlmonth = `
+	const sqlmonth = `
     WITH RECURSIVE Months AS (
         SELECT LAST_DAY(DATE_SUB(CURRENT_DATE(), INTERVAL DAY(CURRENT_DATE())-1 DAY)) AS month_start
         UNION ALL
@@ -327,22 +328,22 @@ const sqlmonth = `
     GROUP BY YEAR(month_start), MONTH(month_start)
     ORDER BY YEAR(month_start), MONTH(month_start) ASC;
 `;
-    try {
-        var [dailyResults, weeklyResults, monthlyResults] = await Promise.all([
-            db.promise().query(sqlday, [req.user.unique_id]),
-            db.promise().query(sqlweek, [req.user.unique_id]),
-            db.promise().query(sqlmonth, [req.user.unique_id]),
-        ]);
-        res.status(200).json({
-            message: "Statistics fetched successfully",
-            daily: dailyResults[0], // Accessing the first element of the result array
-            weekly: weeklyResults[0],
-            monthly: monthlyResults[0],
-        });
-    } catch (err) {
-        console.error("Error parsing statistics", err);
-        res.status(500).json({ message: "Failed to fetch statistics" });
-    }
+	try {
+		var [dailyResults, weeklyResults, monthlyResults] = await Promise.all([
+			db.promise().query(sqlday, [req.user.unique_id]),
+			db.promise().query(sqlweek, [req.user.unique_id]),
+			db.promise().query(sqlmonth, [req.user.unique_id]),
+		]);
+		res.status(200).json({
+			message: "Statistics fetched successfully",
+			daily: dailyResults[0], // Accessing the first element of the result array
+			weekly: weeklyResults[0],
+			monthly: monthlyResults[0],
+		});
+	} catch (err) {
+		console.error("Error parsing statistics", err);
+		res.status(500).json({ message: "Failed to fetch statistics" });
+	}
 };
 
 const getUserInfo = (req, res) => {

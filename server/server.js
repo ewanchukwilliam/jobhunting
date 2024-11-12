@@ -16,6 +16,7 @@ const app = express();
 const corsOptions = {
 	origin: process.env.CORS_ORIGIN || "http://localhost:3000",
 	optionsSuccessStatus: 200,
+	credentials: true
 };
 app.use(express.json());
 app.use(cookieParser());
@@ -53,4 +54,4 @@ let intervalId = setInterval(() => {
 			clearInterval(intervalId);
 		}
 	});
-}, 5000);
+}, 5050);

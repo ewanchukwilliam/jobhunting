@@ -22,10 +22,18 @@ function Create() {
 		axiosInstance
 			.post("/api/add_application", values)
 			.then((res) => {
+				console.log('Response:', res);
 				navigate("/");
-				console.log(res);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => {
+				if (err.response) {
+					console.log('Error Response:', err.response.data);
+				} else if (err.request) {
+					console.log('Error Request:', err.request);
+				} else {
+					console.log('Error:', err.message);
+				}
+			});
 	}
 	return (
 		<>
